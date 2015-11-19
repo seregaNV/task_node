@@ -1,3 +1,119 @@
+/*виставляем логотип*/
+#logo_bootstrap{
+    margin-top: -14px;
+}
+
+/*встановлюємо параметри джамботрона*/
+.jumbotron{
+    position: fixed-bottom;
+    background-image: url(../img/background.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-top: 51px;
+}
+#jumbotronh1, #jumbotronp{
+    color: #ddd;
+}
+
+/*роздєлітель між стовпцями*/
+.help-border-left{
+    border-left: 1px solid transparent;
+    border-left-color: #ccc;
+}
+
+/*параметри Аффікса*/
+.affix-css{
+    top: 50px;
+    padding-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.list-group-item{
+    border-color: #fff;
+
+
+}
+.affix-css .nav>li :hover{
+    border-left: 5px solid transparent;
+    border-left-color: #563d7c;
+    color: #563d7c;
+    text-decoration: none;
+    background-color: transparent;
+    font-size: 16px;
+    font-weight: 600;
+}
+.affix-css .nav>.active>a{
+    color: #563d7c;
+    text-decoration: none;
+    background-color: transparent;
+    font-size: 16px;
+    font-weight: 600;
+    border-color: #0f0;
+}
+#carousel_slide{
+    margin-top: 50px;
+}
+
+.thumbnail-head{
+    font-size: 12px;
+}
+
+
+
+/*#12 Створення спойлера*/
+a.spoiler:after{
+    content: " [-]";
+}
+a.spoiler.collapsed:after{
+    content: " [+]";
+}
+
+/*#17 Создаем підменю*/
+.nav-tabs{
+    margin-bottom: 15px;
+}
+.blogtext{
+    text-align: justify;
+    text-indent: 20px;
+}
+.colsett{
+    border: 1px solid #000;
+    width: 200px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+/*Task 10*/
+.margin{
+    margin-top: 120px;
+}
+.page_name {
+    text-align: center;
+}
+.indent, .cont p {
+    text-indent: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #logo_bootstrap{
 	margin-top: -14px;
 }

@@ -1,0 +1,100 @@
+{% extends 'index.html' %}
+
+{% block head %}
+    {% parent %}
+    <script src="javascripts/hash-map_L9.js"></script>
+    <script type="text/javascript" src="javascripts/affix-css.js"></script>
+{% endblock %}
+
+{% block viewPart %}
+    <div class="jumbotron">
+        <div class="container">
+            <h1 id="jumbotronh1"><b>{{ jumbotitle }}</b></h1>
+            <p  id="jumbotronp">{{ jumbotext }}.</p>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="hidden-xs hidden-sm col-md-4 col-lg-3">
+                <nav class="bs-docs-sidebar affix-css">
+                    <ul class="nav nav-stacked">
+                        <li>
+                            <a href="task_9.html" class="list-group-item">HashMap (Java)</a>
+                        </li>
+                        <li>
+                            <a href="task_10.html" class="list-group-item">Slider</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 help-border-left">
+                <div class="cont">
+                    <h2 class="page_name">Завдання 9.</h2>
+                    <p>Використовуючи JavaScript і прототипи написати аналог HashMap (Java).</p>
+                    <br>
+                    <br>
+                    <div>
+                        <div>
+                            <p>Щоб добавити данні в HashMap - заповніть поля "Ключ"/"Значення", і натисніть кнопку "Додати".</p>
+                            <p><label for="js_inputKey">Введіть ключ: </label><input id="js_inputKey" class="form-control" type="text" name="inputKey" placeholder="Ключ"></p>
+                            <p><label for="js_inputValue">Введіть значення: </label><input id="js_inputValue" class="form-control" type="text" name="inputValue" placeholder="Значення"></p>
+                            <p><input id="js_input" type="submit" value="Додати"></p>
+                            <hr>
+                            <br>
+                        </div>
+                        <div>
+                            <p>Щоб добавити данні в HashMap одною строкою - заповніть поле в наступному форматі: "{'Ключ' = 'Значення', ... }", і натисніть кнопку "Додати".</p>
+                            <p><label for="js_inputString">Введіть данні: </label><input id="js_inputString" class="form-control" type="text" name="inputString" placeholder="Данні одною строкою"></p>
+                            <p><input id="js_parserStringAndAddMap" type="submit" value="Додати"></p>
+                            <hr>
+                            <br>
+                        </div>
+                        <div>
+                            <p>Щоб вивести в консоль строковий варіант данних - натисніть на кнопку.</p>
+                            <p><input id="js_string" type="submit" value="Строка"></p>
+                            <hr>
+                            <br>
+                        </div>
+                        <div>
+                            <p>Щоб вивести в консоль об'єктний варіант данних - натисніть на кнопку.</p>
+                            <p><input id="js_entrySet" type="submit" value="Об'єкт"></p>
+                            <hr>
+                            <br>
+                        </div>
+                        <div>
+                            <p>Щоб отримати данні за ключем - заповніть поле і натисніть кнопку "Отримати".</p>
+                            <p><label for="js_outputKey">Введіть ключ: </label><input id="js_outputKey" class="form-control" type="text" name="outputKey" placeholder="Значення за ключем"></p>
+                            <p><input id="js_output" type="submit" value="Отримати"></p>
+                            <hr>
+                            <br>
+                        </div>
+                        <div>
+                            <p>Щоб видалити данні за ключем - заповніть поле і натисніть кнопку "Видалити"</p>
+                            <p><label for="js_delKey">Введіть ключ: </label><input id="js_delKey" class="form-control" type="text" name="delKey" placeholder="Видалення за ключем"></p>
+                            <p><input id="js_del" type="submit" value="Видалити"></p>
+                            <hr>
+                            <br>
+                        </div>
+                        <div>
+                            <p>Щоб перевірити чи HashMap пустий - натисніть на кнопку.</p>
+                            <p><input id="js_isEmpty" type="submit" value="Обнулити"></p>
+                            <hr>
+                            <br>
+                        </div>
+                        <div>
+                            <p>Щоб перевірити кількість ключів - натисніть на кнопку.</p>
+                            <p><input id="js_checkKey" type="submit" value="Перевірити"></p>
+                            <hr>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}<br>
