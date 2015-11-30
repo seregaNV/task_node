@@ -1,19 +1,9 @@
 {% extends 'index.html' %}
 
-{% block menu %}
-{% endblock %}
-
-{% block viewPart %}
-{% endblock %}
-
-{% block header %}
-    <h1>Error</h1>
-{% endblock %}
-
 {% block content %}
-    <h3>{{ message }}</h3>
-{% endblock %}
-
-{% block footer %}
-    <p class="text-left">{{ stack }}</p>
+    <div id="error_message">
+        <h1>Error</h1>
+        <h3>{{ message }}</h3>
+        <p>{{ stack }}</p>
+    </div>
 {% endblock %}

@@ -1,46 +1,19 @@
-{% extends 'index.html' %}
+{% extends 'tasks2.html' %}
 
 {% block head %}
-    {% parent %}
+{% parent %}
     <script src="javascripts/carouselka_L10.js"></script>
-    <script type="text/javascript" src="javascripts/affix-css.js"></script>
     <script src="javascripts/jquery_myCarouselka_L10.js"></script>
+    <link rel="stylesheet" type="text/css" href="libs/font-awesome/css/font-awesome.css">
 {% endblock %}
 
-{% block viewPart %}
-    <div class="jumbotron">
-        <div class="container">
-            <h1 id="jumbotronh1"><b>{{ jumbotitle }}</b></h1>
-            <p  id="jumbotronp">{{ jumbotext }}.</p>
-        </div>
-    </div>
-{% endblock %}
-
-
-
-{% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="hidden-xs hidden-sm col-md-4 col-lg-3">
-                <nav class="bs-docs-sidebar affix-css">
-                    <ul class="nav nav-stacked">
-                        <li>
-                            <a href="task_9.html" class="list-group-item">HashMap (Java)</a>
-                        </li>
-                        <li>
-                            <a href="task_10.html" class="list-group-item">Slider</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+{% block tasks2_content %}
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 help-border-left">
-                <div class="cont">
+                <div>
                     <h2 class="page_name">Завдання 10.</h2>
-                    <p>Конструктор + плагін для слайдера.</p>
+                    <p class="indent">Конструктор + плагін для слайдера.</p>
                     <br>
-                    <div id="jquery_myCarouselka"></div>
+                    <div id="js_t10_myCarouselka"></div>
                 </div>
             </div>
-        </div>
-    </div>
 {% endblock %}

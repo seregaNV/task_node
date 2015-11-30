@@ -1,15 +1,33 @@
+body{
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 /*виставляем логотип*/
 #logo_bootstrap{
     margin-top: -14px;
 }
 
+/*Виставляємо карусєль*/
+#carousel_slide{
+    margin-top: 50px;
+}
+
+/*Підганяємо футер*/
+#main_footer, #error_message{
+    margin: 20px;
+}
+
 /*встановлюємо параметри джамботрона*/
 .jumbotron{
     position: fixed-bottom;
-    background-image: url(../img/background.jpg);
+    background-image: url(http://localhost:3000/images/background.jpg);
     background-repeat: no-repeat;
     background-position: center;
-    margin-top: 51px;
+    margin-top: 50px;
 }
 #jumbotronh1, #jumbotronp{
     color: #ddd;
@@ -18,7 +36,7 @@
 /*роздєлітель між стовпцями*/
 .help-border-left{
     border-left: 1px solid transparent;
-    border-left-color: #ccc;
+    border-left-color: #eee;
 }
 
 /*параметри Аффікса*/
@@ -30,8 +48,6 @@
 }
 .list-group-item{
     border-color: #fff;
-
-
 }
 .affix-css .nav>li :hover{
     border-left: 5px solid transparent;
@@ -50,25 +66,11 @@
     font-weight: 600;
     border-color: #0f0;
 }
-#carousel_slide{
-    margin-top: 50px;
+#tasks_container{
+    margin-top: -30px;
 }
 
-.thumbnail-head{
-    font-size: 12px;
-}
-
-
-
-/*#12 Створення спойлера*/
-a.spoiler:after{
-    content: " [-]";
-}
-a.spoiler.collapsed:after{
-    content: " [+]";
-}
-
-/*#17 Создаем підменю*/
+/*Настройка сторінки блога*/
 .nav-tabs{
     margin-bottom: 15px;
 }
@@ -76,61 +78,41 @@ a.spoiler.collapsed:after{
     text-align: justify;
     text-indent: 20px;
 }
-.colsett{
-    border: 1px solid #000;
-    width: 200px;
-    display: inline-block;
-    vertical-align: top;
+.thumbnail-head{
+    font-size: 12px;
 }
 
-/*Task 10*/
-.margin{
-    margin-top: 120px;
+#js_sc_publish{
+    margin-left: 30px;
 }
+/*#12 Створення спойлера*/
+/*a.spoiler:after{*/
+    /*content: " [-]";*/
+/*}*/
+/*a.spoiler.collapsed:after{*/
+    /*content: " [+]";*/
+/*}*/
+
+/*#17 Создаем підменю*/
+/*.colsett{*/
+    /*border: 1px solid #000;*/
+    /*width: 200px;*/
+    /*display: inline-block;*/
+    /*vertical-align: top;*/
+/*}*/
+
+/*Task 10*/
+/*.margin{*/
+    /*margin-top: 120px;*/
+/*}*/
 .page_name {
     text-align: center;
 }
-.indent, .cont p {
+.indent{
     text-indent: 30px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#logo_bootstrap{
-	margin-top: -14px;
-}
-.jumbotron{
-	position: fixed-bottom;
-	background-image: url(http://localhost:3000/images/background.jpg);
-	background-repeat: no-repeat;
-	background-position: center;
-	margin-top: 50px;
-}
-#jumbotronh1, #jumbotronp{
-	color: #ddd;
-}
-#t17_content{
-    margin: 20px;
-    text-indent: 30px;
-}
+/*В будуєщєм буде пагинация*/
 /*#t17_pages{*/
     /*float: right;*/
     /*width: auto;*/
