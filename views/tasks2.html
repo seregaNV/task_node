@@ -1,40 +1,43 @@
 {% extends 'main.html' %}
 
 {% block head %}
-<script type="text/javascript" src="javascripts/affix-css.js"></script>
+    <script type="text/javascript" src="javascripts/affix-css.js"></script>
 {% endblock %}
 
 {% block viewPart %}
-<div class="jumbotron">
-    <div class="container">
-        <h1 id="jumbotronh1"><b>{{ jumbotitle }}</b></h1>
-        <p  id="jumbotronp">{{ jumbotext }}.</p>
+    <div class="jumbotron">
+        <div class="container">
+            <h1 id="jumbotronh1"><b>{{ jumbotitle }}</b></h1>
+            <p  id="jumbotronp">{{ jumbotext }}.</p>
+        </div>
     </div>
-</div>
 {% endblock %}
 
 {% block content %}
-<div class="container" id="tasks_container">
-    <div class="row">
-        <div class="hidden-xs hidden-sm col-md-3 col-lg-3">
-            <nav class="bs-docs-sidebar affix-css">
-                <ul class="nav nav-stacked">
-                    <li>
-                        <a href="http://localhost:3000/hash-map" class="list-group-item">HashMap (Java)</a>
-                    </li>
-                    <li>
-                        <a href="http://localhost:3000/slider" class="list-group-item">Slider</a>
-                    </li>
-                    <li>
-                        <a href="http://localhost:3000/simple-chat" class="list-group-item">Simple chat</a>
-                    </li>
-                </ul>
-            </nav>
+    <div class="container" id="tasks_container">
+        <div class="row">
+            <div class="hidden-xs hidden-sm col-md-3 col-lg-3">
+                <nav class="bs-docs-sidebar affix-css">
+                    <ul class="nav nav-stacked">
+                        <li>
+                            <a href="http://localhost:3000/hash-map" class="list-group-item">HashMap (Java)</a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:3000/slider" class="list-group-item">Slider</a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:3000/data-json" class="list-group-item">Data JSON</a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:3000/simple-chat" class="list-group-item">Simple chat</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            {% block tasks2_content %}
+            {% endblock %}
+
         </div>
-
-        {% block tasks2_content %}
-        {% endblock %}
-
     </div>
-</div>
 {% endblock %}

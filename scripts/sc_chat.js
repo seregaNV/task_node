@@ -1,9 +1,7 @@
-/*зберігає поточне підключення в масиві*/
 var clients = [];
 
 /*при команді "subscribe" добавляється новій об"єкт "res" в масив*/
 exports.subscribe = function(req, res) {
-    console.log("subscribe");
 
     //res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     clients.push(res);
@@ -26,7 +24,3 @@ exports.publish = function(message) {
 
     clients = [];
 };
-
-setInterval(function() {
-    console.log(clients.length);
-}, 5000);

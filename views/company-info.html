@@ -1,0 +1,13 @@
+{% extends 'tasks2.html' %}
+
+{% block tasks2_content %}
+    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 help-border-left indent">
+        <h2>"{{ title }}"</h2>
+        <div>
+            <p><b>Country:</b> {{ companyData.country }}.</p>
+            <p><b>Founding date:</b> {{ companyData.founding_date }}.</p>
+            <p><b>Phone number:</b> {{ companyData.phone }}.</p>
+            <p><b>Discription:</b> {{ companyData.discription }}</p>
+        </div>
+    </div>
+{% endblock %}
