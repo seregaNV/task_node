@@ -1,0 +1,47 @@
+{% extends 'tasks2.html' %}
+
+{% block head %}
+    {% parent %}
+    <script src="javascripts/t18_autocomplete.js"></script>
+{% endblock %}
+
+{% block tasks2_content %}
+<div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 help-border-left text-justify indent">
+    <h2 class="page_name">Задание 18</h2>
+    <ol>
+        <li>Добавить поле поиска в хедер страницы (должно присутствовать на каждой
+            странице приложения)
+        </li>
+        <li>При вводе от 3 символов и более должен появляется выпадающий список с
+            подсказками, по списку можно перемещаться с помощью стрелок верх в низ,
+            либо выбрать нужный пункт мышью(функционал UI полностью аналогичен
+            вводу запроса в гугле). Поиск осуществляется только по имени компании,
+            введёная строка может быть как полным именем, так и просто быть частью
+            имени(подстрокой). Если ни один из пунктов не выбран, а нажата клавиша Enter
+            то осуществляется переход на страницу со списком компаний подходящим
+            критерию поиска(ввод в инпуте поиска). Если выбран пункт из списка
+            подсказки(туда выводить названия подходящих компаний) то осуществлять
+            переход на страницу с полным описанием выбранной компании.
+        </li>
+        <li>На стороне сервера нужна соответствующая логика:
+            <ol>
+                <li>на запросы поиска при вводе надо отсылать json с данными для
+                    автоподсказки</li>
+                <li>страница вывода результатов поиска(имена компаний в списке должны быть
+                    ссылками на их страницы), отображение если поиск дал 0 результатов</li>
+            </ol>
+        </li>
+    </ol>
+    <br>
+    <p>Enter the name of the company, and press "Search"</p>
+    <div class="search_area">
+        <form action="" method="GET" class="form-inline">
+            <div class="form-group">
+                <input type="text" name="query" class="form-control" id="js_t18_search_box" placeholder="Company name" value="" autocomplete="off">
+            </div>
+            <button type="submit" class="btn btn-default">Search</button>
+            <div id="js_t18_search_result"></div>
+        </form>
+    </div>
+</div>
+{% endblock %}

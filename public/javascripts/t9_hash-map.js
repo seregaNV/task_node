@@ -1,3 +1,4 @@
+"use strict";
 $(document).ready(function() {
     var map = new HashMap();
     var key, value, inputString, output, delKey;
