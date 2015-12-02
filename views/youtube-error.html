@@ -1,31 +1,30 @@
-{% extends 'index.html' %}
+{% extends 'tasks2.html' %}
 
 {% block head %}
+    {% parent %}
     <script src="/javascripts/t16_api_youtube_acc.js"></script>
 {% endblock %}
 
-{% block header %}
-    <h3>{{title}}</h3>
-    <p>Request to API YouTube has been sent with error.</p>
-{% endblock %}<br>
-
-{% block content %}
-    <div>
-        <p class="js_t16_show_res text-center">Show the code of the original response from API YouTube.</p>
-        <div class="js_t16_original_res">
-            {{ message }}
+{% block tasks2_content %}
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 help-border-left indent">
+        <h2 class="page_name">{{title}}</h2>
+        <h4 class="indent">Request to API YouTube has been sent with error.</h4>
+        <br>
+        <div>
+            <p class="js_t16_show_res text-center">Show the code of the original response from API YouTube.</p>
+            <div class="js_t16_original_res">
+                {{ message }}
+            </div>
         </div>
+        <p>Information about the message:</p>
+        <dl class="dl-horizontal">
+            <dt>Code error:</dt>
+            <dd>{{ error.code }}</dd>
+            <dt>Reason:</dt>
+            <dd>{{ error.errors[0].reason }}</dd>
+            <dt>Message:</dt>
+            <dd>{{ error.errors[0].message }}</dd>
+        </dl>
+        <p>Solution to the problem you can found at: <a href="https://console.developers.google.com">https://console.developers.google.com</a></p>
     </div>
-    <p>Information about the message:</p>
-    <dl class="dl-horizontal">
-        <dt>Code error:</dt>
-        <dd>{{ error.code }}</dd>
-        <dt>Reason:</dt>
-        <dd>{{ error.errors[0].reason }}</dd>
-        <dt>Message:</dt>
-        <dd>{{ error.errors[0].message }}</dd>
-    </dl>
-    <p>Solution to the problem you can found at: <a href="https://console.developers.google.com">https://console.developers.google.com</a></p>
-    <p>To return, click on the button:</p>
-    <a href="http://localhost:3000"><button type="button" class="btn btn-default">Return</button></a>
 {% endblock %}

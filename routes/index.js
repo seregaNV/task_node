@@ -108,8 +108,10 @@ router.get('/youtube', function(req, res, next) {
                     });
                 }
                 results = JSON.stringify(result, null, 2);
-                res.render('search', {
+                res.render('youtube-search', {
                     title: 'Keyword search',
+                    jumbotitle: 'Task 16',
+                    jumbotext: 'Sending a request to the API YouTube and processing response',
                     container: container,
                     message: results
                 });
@@ -117,6 +119,8 @@ router.get('/youtube', function(req, res, next) {
                 results = JSON.stringify(error, null, 2);
                 res.render('youtube-error', {
                     title: 'Response error',
+                    jumbotitle: 'Task 16',
+                    jumbotext: 'Response from API YouTube about errors',
                     error: error,
                     message: results
                 });
@@ -145,6 +149,8 @@ router.get('/youtube', function(req, res, next) {
                 results = JSON.stringify(result, null, 2);
                 res.render('video-info', {
                     title: 'Information about the video',
+                    jumbotitle: 'Task 16',
+                    jumbotext: 'Sending a request to the API YouTube and processing response',
                     container: container,
                     message: results
                 });
@@ -152,6 +158,8 @@ router.get('/youtube', function(req, res, next) {
                 results = JSON.stringify(error, null, 2);
                 res.render('youtube-error', {
                     title: 'Response error',
+                    jumbotitle: 'Task 16',
+                    jumbotext: 'Response from API YouTube about errors',
                     error: error,
                     message: results
                 });
@@ -186,6 +194,8 @@ router.get('/youtube', function(req, res, next) {
                 results = JSON.stringify(result, null, 2);
                 res.render('playlist-info', {
                     title: 'Information about the playlist',
+                    jumbotitle: 'Task 16',
+                    jumbotext: 'Sending a request to the API YouTube and processing response',
                     container: container,
                     message: results
                 });
@@ -193,6 +203,8 @@ router.get('/youtube', function(req, res, next) {
                 results = JSON.stringify(error, null, 2);
                 res.render('youtube-error', {
                     title: 'Response error',
+                    jumbotitle: 'Task 16',
+                    jumbotext: 'Response from API YouTube about errors',
                     error: error,
                     message: results
                 });
@@ -212,34 +224,6 @@ router.get('/youtube', function(req, res, next) {
         throw new Error('Server Error');
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

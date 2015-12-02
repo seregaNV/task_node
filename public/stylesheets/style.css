@@ -1,11 +1,11 @@
-body{
-    -moz-user-select: none;
-    -o-user-select:none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
+/*body{*/
+    /*-moz-user-select: none;*/
+    /*-o-user-select:none;*/
+    /*-khtml-user-select: none;*/
+    /*-webkit-user-select: none;*/
+    /*-ms-user-select: none;*/
+    /*user-select: none;*/
+/*}*/
 /*виставляем логотип*/
 #logo_bootstrap{
     margin-top: -14px;
@@ -35,8 +35,7 @@ body{
 
 /*роздєлітель між стовпцями*/
 .help-border-left{
-    border-left: 1px solid transparent;
-    border-left-color: #eee;
+    border-left: 3px solid rgba(174, 101, 255, 0.37);
 }
 
 /*параметри Аффікса*/
@@ -176,11 +175,6 @@ body{
 }
 
 /*Настройки для API YouTube (Task 16)*/
-.t16_btn{
-    float: right;
-    width: 150px;
-    background-color: #56317d;
-}
 .js_t16_show_res{
     cursor: pointer;
     font-weight: bold;
@@ -192,5 +186,5 @@ body{
     display: none;
     color: #666;
     padding: 10px;
-    border: 3px solid #56317d;
+    border: 2px solid rgb(134, 66, 192);
 }

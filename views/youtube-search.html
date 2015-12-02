@@ -1,0 +1,39 @@
+{% extends 'tasks2.html' %}
+
+{% block head %}
+    {% parent %}
+    <script src="/javascripts/t16_api_youtube_acc.js"></script>
+{% endblock %}
+
+{% block tasks2_content %}
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 help-border-left indent">
+        <h2 class="page_name">Keyword search</h2>
+        <h4 class="indent">On this page shows the results of a keyword search.</h4>
+        <br>
+        <div>
+            <p class="js_t16_show_res text-center">Show the code of the original response from API YouTube.</p>
+            <div class="js_t16_original_res">
+                {{ message }}
+            </div>
+        </div>
+        <h4>General information about the results of request.</h4>
+        <p><b>Keywords:</b> "{{ container.keywords }}";</p>
+        <p><b>Total results:</b> {{ container.totalResults }};</p>
+        <p><b>Results per page:</b> {{ container.resultsPerPage }};</p>
+        <br>
+        <br>
+        <h4>Detailed information about the results of request.</h4>
+
+        {% for info in container.items %}
+            <hr>
+            <p><b>Type:</b> "{{ info.type }}";</p>
+            <p><b>ID:</b> "{{ info.id }}";</p>
+            <p><b>Title:</b> "{{ info.title }}";</p>
+            <p><b>Description:</b> "{{ info.description }}";</p>
+            <p><b>Published at:</b> "{{ info.publishedAt }}";</p>
+            <p><b>Link to the {{ info.type }}:</b> <a href="{{ info.link }}" target="blank">{{ info.link }}</a>;</p>
+            <p><b>Channel ID:</b> "{{ info.channelId }}";</p>
+            <p><b>Thumbnails:</b> <img src="{{ info.thumbnails }}" class="img-thumbnail"></p>
+        {% endfor %}
+    </div>
+{% endblock %}
