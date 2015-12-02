@@ -7,8 +7,8 @@
 
 {% block tasks2_content %}
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 help-border-left indent">
-        <h2 class="page_name">Keyword search</h2>
-        <h4 class="indent">On this page shows the results of a keyword search.</h4>
+        <h2 class="page_name">Video info</h2>
+        <h4 class="indent">On this page shows information about the video.</h4>
         <br>
         <div>
             <p class="js_t16_show_res text-center">Show the code of the original response from API YouTube.</p>
@@ -16,25 +16,29 @@
                 {{ message }}
             </div>
         </div>
-        <h4>General information about the results of request.</h4>
+        <h4>General information about the video.</h4>
         <p><b>The query string:</b> <a href="{{ queryString }}" target="blank">{{ queryString }}</a></p>
-        <p><b>Keywords:</b> "{{ container.keywords }}";</p>
         <p><b>Total results:</b> {{ container.totalResults }};</p>
         <p><b>Results per page:</b> {{ container.resultsPerPage }};</p>
+        <p><b>Playlist ID:</b> {{ container.playlistId }};</p>
+        <p><b>Link to the playlist:</b> <a href="{{ container.linkPlaylist }}" target="blank">{{ container.linkPlaylist }}</a>;</p>
         <br>
         <br>
         <h4>Detailed information about the results of request.</h4>
 
         {% for info in container.items %}
             <hr>
-            <p><b>Type:</b> "{{ info.type }}";</p>
             <p><b>ID:</b> "{{ info.id }}";</p>
             <p><b>Title:</b> "{{ info.title }}";</p>
             <p><b>Description:</b> "{{ info.description }}";</p>
             <p><b>Published at:</b> "{{ info.publishedAt }}";</p>
-            <p><b>Link to the {{ info.type }}:</b> <a href="{{ info.link }}" target="blank">{{ info.link }}</a>;</p>
+            <p><b>Link to the video:</b> <a href="{{ info.linkVideo }}" target="blank">{{ info.linkVideo }}</a>;</p>
+            <p><b>Playlist ID:</b> "{{ info.playlistId }}";</p>
             <p><b>Channel ID:</b> "{{ info.channelId }}";</p>
+            <p><b>Channel title:</b> "{{ info.channelTitle }}";</p>
             <img src="{{ info.thumbnails }}" class="img-thumbnail">
+            <br>
+            <br>
         {% endfor %}
     </div>
 {% endblock %}

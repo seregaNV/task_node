@@ -53,7 +53,8 @@ router.get('/youtube', function(req, res, next) {
         videoId,
         playlistId,
         quantityResults,
-        results;
+        results,
+        queryString;
 
     keyAPI = req.query.setKey;
     youTubeAPI.setKey(keyAPI);
@@ -70,6 +71,7 @@ router.get('/youtube', function(req, res, next) {
         throw new Error('You must fill in only one field of: "Keywords", "Video ID" or "Playlist ID".');
     } else if (keywords) {
         youTubeAPI.search(keywords, quantityResults, function(error, result) {
+            queryString = youTubeAPI.getUrl('search');
             if (result) {
                 container = {};
                 container.keywords = keywords;
@@ -112,6 +114,7 @@ router.get('/youtube', function(req, res, next) {
                     title: 'Keyword search',
                     jumbotitle: 'Task 16',
                     jumbotext: 'Sending a request to the API YouTube and processing response',
+                    queryString: queryString,
                     container: container,
                     message: results
                 });
@@ -121,6 +124,7 @@ router.get('/youtube', function(req, res, next) {
                     title: 'Response error',
                     jumbotitle: 'Task 16',
                     jumbotext: 'Response from API YouTube about errors',
+                    queryString: queryString,
                     error: error,
                     message: results
                 });
@@ -131,6 +135,7 @@ router.get('/youtube', function(req, res, next) {
         });
     } else if (videoId) {
         youTubeAPI.getById(videoId, function(error, result) {
+            queryString = youTubeAPI.getUrl('videos');
             if (result) {
                 container = {};
                 container.videoId = result.items[0].id;
@@ -147,10 +152,13 @@ router.get('/youtube', function(req, res, next) {
                 container.dislikeCount = result.items[0].statistics.dislikeCount;
                 container.commentCount = result.items[0].statistics.commentCount;
                 results = JSON.stringify(result, null, 2);
-                res.render('video-info', {
+                containerr = JSON.stringify(container, null, 2);
+                console.log(containerr);
+                res.render('youtube-video-info', {
                     title: 'Information about the video',
                     jumbotitle: 'Task 16',
                     jumbotext: 'Sending a request to the API YouTube and processing response',
+                    queryString: queryString,
                     container: container,
                     message: results
                 });
@@ -160,6 +168,7 @@ router.get('/youtube', function(req, res, next) {
                     title: 'Response error',
                     jumbotitle: 'Task 16',
                     jumbotext: 'Response from API YouTube about errors',
+                    queryString: queryString,
                     error: error,
                     message: results
                 });
@@ -170,6 +179,7 @@ router.get('/youtube', function(req, res, next) {
         });
     } else if (playlistId) {
         youTubeAPI.getPlayListById(playlistId, quantityResults, function(error, result) {
+            queryString = youTubeAPI.getUrl('playlistItems');
             if (result) {
                 container = {};
                 container.totalResults = result.pageInfo.totalResults;
@@ -192,10 +202,11 @@ router.get('/youtube', function(req, res, next) {
                     });
                 }
                 results = JSON.stringify(result, null, 2);
-                res.render('playlist-info', {
+                res.render('youtube-playlist-info', {
                     title: 'Information about the playlist',
                     jumbotitle: 'Task 16',
                     jumbotext: 'Sending a request to the API YouTube and processing response',
+                    queryString: queryString,
                     container: container,
                     message: results
                 });
@@ -205,6 +216,7 @@ router.get('/youtube', function(req, res, next) {
                     title: 'Response error',
                     jumbotitle: 'Task 16',
                     jumbotext: 'Response from API YouTube about errors',
+                    queryString: queryString,
                     error: error,
                     message: results
                 });
