@@ -174,3 +174,23 @@ body{
     margin-left: -30px;
     background-color: rgba(36, 132, 255, 0.12);
 }
+
+/*Настройки для API YouTube (Task 16)*/
+.t16_btn{
+    float: right;
+    width: 150px;
+    background-color: #56317d;
+}
+.js_t16_show_res{
+    cursor: pointer;
+    font-weight: bold;
+}
+.js_t16_show_res:hover{
+    box-shadow: inset 0 0 10px 1px rgb(100, 45, 140);
+}
+.js_t16_original_res{
+    display: none;
+    color: #666;
+    padding: 10px;
+    border: 3px solid #56317d;
+}
