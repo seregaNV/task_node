@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block tasks2_content %}
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 help-border-left indent">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 help-border-left indent t16_queryString">
         <h2 class="page_name">Keyword search</h2>
         <h4 class="indent">On this page shows the results of a keyword search.</h4>
         <br>
@@ -16,25 +16,39 @@
                 {{ message }}
             </div>
         </div>
-        <h4>General information about the results of request.</h4>
-        <p><b>The query string:</b> <a href="{{ queryString }}" target="blank">{{ queryString }}</a></p>
-        <p><b>Keywords:</b> "{{ container.keywords }}";</p>
-        <p><b>Total results:</b> {{ container.totalResults }};</p>
-        <p><b>Results per page:</b> {{ container.resultsPerPage }};</p>
-        <br>
-        <br>
-        <h4>Detailed information about the results of request.</h4>
+        <dl class="dl-horizontal">
+            <dt>The query string:</dt>
+            <dd><a href="{{ queryString }}" target="blank">{{ queryString }}</a></dd>
+            <dt>Keywords:</dt>
+            <dd>"{{ container.keywords }}"</dd>
+            <dt>Total results:</dt>
+            <dd>{{ container.totalResults }}</dd>
+            <dt>Results per page:</dt>
+            <dd>{{ container.resultsPerPage }}</dd>
+        </dl>
 
         {% for info in container.items %}
-            <hr>
-            <p><b>Type:</b> "{{ info.type }}";</p>
-            <p><b>ID:</b> "{{ info.id }}";</p>
-            <p><b>Title:</b> "{{ info.title }}";</p>
-            <p><b>Description:</b> "{{ info.description }}";</p>
-            <p><b>Published at:</b> "{{ info.publishedAt }}";</p>
-            <p><b>Link to the {{ info.type }}:</b> <a href="{{ info.link }}" target="blank">{{ info.link }}</a>;</p>
-            <p><b>Channel ID:</b> "{{ info.channelId }}";</p>
-            <img src="{{ info.thumbnails }}" class="img-thumbnail">
+            <div class="thumbnail t16_queryString">
+                <img src="{{ info.thumbnails }}" class="img-thumbnail">
+                <div class="caption">
+                    <dl class="dl-horizontal">
+                        <dt>Title:</dt>
+                        <dd>{{ info.title }}</dd>
+                        <dt>Description:</dt>
+                        <dd>{{ info.description }}</dd>
+                        <dt>Published at:</dt>
+                        <dd>{{ info.publishedAt }}</dd>
+                        <dt>{{ info.type|title }} ID:</dt>
+                        <dd>"{{ info.id }}"</dd>
+                        <dt>Channel ID:</dt>
+                        <dd>"{{ info.channelId }}"</dd>
+                        <dt>Type:</dt>
+                        <dd>"{{ info.type }}"</dd>
+                        <dt>Link to the {{ info.type }}:</dt>
+                        <dd><a href="{{ info.link }}" target="blank">{{ info.link }}</a></dd>
+                    </dl>
+                </div>
+            </div>
         {% endfor %}
     </div>
 {% endblock %}

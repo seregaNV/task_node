@@ -6,13 +6,14 @@
 {% endblock %}
 
 {% block tasks2_content %}
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 help-border-left indent">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 help-border-left indent t16_queryString">
         <h2 class="page_name">{{title}}</h2>
         <h4 class="indent">Request to API YouTube has been sent with error.</h4>
         <br>
-        <div>
-        <p><b>The query string:</b> <a class="ppp" href="{{ queryString }}" target="blank">{{ queryString }}</a></p>
-        </div>
+        <dl class="dl-horizontal">
+            <dt>The query string:</dt>
+            <dd><a href="{{ queryString }}" target="blank">{{ queryString }}</a></dd>
+        </dl>
         <div>
             <p class="js_t16_show_res text-center">Show the code of the original response from API YouTube.</p>
             <div class="js_t16_original_res">

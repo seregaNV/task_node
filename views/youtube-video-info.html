@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block tasks2_content %}
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 help-border-left indent">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 help-border-left indent t16_queryString">
         <h2 class="page_name">Video info</h2>
         <h4 class="indent">On this page shows information about the video.</h4>
         <br>
@@ -17,20 +17,40 @@
             </div>
         </div>
         <h4>General information about the video.</h4>
-
-        <p><b>The query string:</b> <a href="{{ queryString }}" target="blank">{{ queryString }}</a></p>
-        <p><b>Video ID:</b> "{{ container.videoId }}";</p>
-        <p><b>Title:</b> "{{ container.title }}";</p>
-        <p><b>Description:</b> "{{ container.description }}";</p>
-        <p><b>Link:</b> <a href="{{ container.link }}" target="blank">{{ container.link }}</a>;</p>
-        <p><b>Published at:</b> "{{ container.publishedAt }}";</p>
-        <p><b>Channel ID:</b> "{{ container.channelId }}";</p>
-        <p><b>Channel Title:</b> "{{ container.channelTitle }}";</p>
-        <p><b>Privacy status:</b> "{{ container.privacyStatus }}";</p>
-        <p><b>View count:</b> "{{ container.viewCount }}";</p>
-        <p><b>Like count:</b> "{{ container.likeCount }}";</p>
-        <p><b>Dislike count:</b> "{{ container.dislikeCount }}";</p>
-        <p><b>Comment count:</b> "{{ container.commentCount }}";</p>
-        <img src="{{ container.thumbnails }}" class="img-thumbnail">
+        <dl class="dl-horizontal">
+            <dt>The query string:</dt>
+            <dd><a href="{{ queryString }}" target="blank">{{ queryString }}</a></dd>
+        </dl>
+        <div class="thumbnail t16_queryString">
+            <img src="{{ container.thumbnails }}" class="img-thumbnail">
+            <div class="caption">
+                <dl class="dl-horizontal">
+                    <dt>Title:</dt>
+                    <dd>{{ container.title }}</dd>
+                    <dt>Description:</dt>
+                    <dd>{{ container.description }}</dd>
+                    <dt>Published at:</dt>
+                    <dd>{{ container.publishedAt }}</dd>
+                    <dt>Video ID:</dt>
+                    <dd>"{{ container.videoId }}"</dd>
+                    <dt>Link:</dt>
+                    <dd><a href="{{ container.link }}" target="blank">{{ container.link }}</a></dd>
+                    <dt>Channel ID:</dt>
+                    <dd>"{{ container.channelId }}"</dd>
+                    <dt>Channel Title:</dt>
+                    <dd>{{ container.channelTitle }}</dd>
+                    <dt>Privacy status:</dt>
+                    <dd>"{{ container.privacyStatus }}"</dd>
+                    <dt>View count:</dt>
+                    <dd>{{ container.viewCount }}</dd>
+                    <dt>Like count:</dt>
+                    <dd>{{ container.likeCount }}</dd>
+                    <dt>Dislike count:</dt>
+                    <dd>{{ container.dislikeCount }}</dd>
+                    <dt>Comment count:</dt>
+                    <dd>{{ container.commentCount }}</dd>
+                </dl>
+            </div>
+        </div>
     </div>
 {% endblock %}

@@ -54,7 +54,7 @@
     color: #563d7c;
     text-decoration: none;
     background-color: transparent;
-    font-size: 16px;
+    /*font-size: 16px;*/
     font-weight: 600;
 }
 .affix-css .nav>.active>a{
@@ -188,7 +188,7 @@
     padding: 10px;
     border: 2px solid rgb(134, 66, 192);
 }
-.ppp{
-    display: inherit;
-    width: 100%;
+.t16_queryString{
+    word-wrap: break-word;
 }
+/*word-break: break-all;*/
