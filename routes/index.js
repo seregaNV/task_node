@@ -376,6 +376,36 @@ router.get('/autocomplete', function(req, res, next) {
     }
 });
 
+
+
+
+//Chat_________________________________________________________________________________________________________________
+
+
+var User = require('scripts/user').User;
+
+
+router.use('/users', function(req, res, next) {
+    User.find({}, function (err, users) {
+        if (err) return next(err);
+        res.json(users);
+    })
+});
+router.use('/user/:id', function(req, res, next){
+    User.findById(req.params.id, function(err, user){
+        if (err) return next(err);
+        if (!user) {
+            next(new HttpError(404, 'User not found.'));
+        }
+        res.json(user);
+    })
+});
+
+
+
+
+
+
 //Simple chat__________________________________________________________________________________________________________
 router.get('/simple-chat', function(req, res, next) {
     res.render('simple-chat', {

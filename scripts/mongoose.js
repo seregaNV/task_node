@@ -4,7 +4,7 @@
 /*база данних для класів*/
 /*підключяємо мангуст*/
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/chat');
 //var config = require('config');
 /*конектимо, і добавляємо наступну строчку в "config/config.json"*/
 //mongoose.connect('mongodb://localhost/chat');
