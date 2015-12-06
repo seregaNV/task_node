@@ -393,10 +393,13 @@ router.use('/users', function(req, res, next) {
 });
 router.use('/user/:id', function(req, res, next){
     User.findById(req.params.id, function(err, user){
-        if (err) return next(err);
-        if (!user) {
-            next(new HttpError(404, 'User not found.'));
-        }
+        //При надобності, організувати правильну обробку ошибок
+        //if (err) return next(err);
+        //if (!user) {
+        //    console.error('User not found');
+        //    throw new Error('User not found');
+        //    //next(new HttpError(404, 'User not found.'));
+        //}
         res.json(user);
     })
 });
