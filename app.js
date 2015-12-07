@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 //var users = require('./routes/users');
 
+
 var app = express();
 
 var swig = require('swig');
@@ -29,43 +30,84 @@ app.use(cookieParser());
 
 
 
+
+var config = require('config');
+var expressSession = require('express-session');
+var mongoose = require('scripts/mongoose');
+var MongoStore = require('connect-mongo')(expressSession);
+app.use(expressSession({
+    secret: config.get('session:secret'),
+    key: config.get('session:key'),
+    cookie: config.get('session:cookie'),
+    store: new MongoStore({mongooseConnection: mongoose.connection}),
+    resave: true,
+    saveUninitialized: true
+}));
+
+//app.use(function(req, res, next) {
+//    req.session.numberOfVisits = req.session.numberOfVisits +1 || 1;
+//    res.send('Visits: ' + req.session.numberOfVisits);
+//});
+
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 //app.use('/users', users);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
 
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            title: Error,
-            message: err.message,
-            error: err,
-            stack: err.stack
-        });
-    });
-}
-
-// production error handler
-// no stacktraces leaked to user
+var errorhandler = require('errorhandler');
 app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        title: Error,
-        message: err.message,
-        error: {}
-    });
+    if (typeof err == 'number') {
+        err = new HttpError(err);
+    }
+    if (err instanceof HttpError) {
+        res.sendHttpError(err);
+    } else {
+        if (app.get('env') == 'development') {
+            app.use(errorhandler());
+        } else {
+            console.error(err);
+            err = new HttpError(500);
+            res.sendHttpError(err);
+        }
+    }
 });
+
+
+// catch 404 and forward to error handler
+//app.use(function(req, res, next) {
+//    var err = new Error('Not Found');
+//    err.status = 404;
+//    next(err);
+//});
+//
+//// error handlers
+//
+//// development error handler
+//// will print stacktrace
+//if (app.get('env') === 'development') {
+//    app.use(function(err, req, res, next) {
+//        res.status(err.status || 500);
+//        res.render('error', {
+//            title: Error,
+//            message: err.message,
+//            error: err,
+//            stack: err.stack
+//        });
+//    });
+//}
+//
+//// production error handler
+//// no stacktraces leaked to user
+//app.use(function(err, req, res, next) {
+//    res.status(err.status || 500);
+//    res.render('error', {
+//        title: Error,
+//        message: err.message,
+//        error: {}
+//    });
+//});
 
 
 module.exports = app;
