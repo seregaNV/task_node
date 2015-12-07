@@ -1,12 +1,9 @@
 var express = require('express');
 var path = require('path');
-var config = require('config');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var expressSession = require('express-session');
-var mongoose = require('scripts/mongoose');
 
 var routes = require('./routes/index');
 //var users = require('./routes/users');
@@ -30,21 +27,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-var MongoStore = require('connect-mongo')(expressSession);
-
-app.use(expressSession({
-    secret: config.get('session:secret'),
-    key: config.get('session:key'),
-    cookie: config.get('session:cookie'),
-    store: new MongoStore({mongooseConnection: mongoose.connection}),
-    resave: true,
-    saveUninitialized: true
-}));
-
-app.use(function(req, res, next) {
-    req.session.numberOfVisits = req.session.numberOfVisits +1 || 1;
-    res.send('Visits: ' + req.session.numberOfVisits);
-});
 
 
 app.use(express.static(path.join(__dirname, 'public')));

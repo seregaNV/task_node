@@ -1,8 +1,5 @@
 var express = require('express'),
-    router = express.Router(),
-    chat = require('../scripts/sc_chat'),
-    chosenCompany;
-
+    router = express.Router();
 
 router.get('/', require('./main').get);
 router.get('/news', require('./news').get);
@@ -10,10 +7,16 @@ router.get('/blog', require('./blog').get);
 router.get('/hash-map', require('./hash-map').get);
 router.get('/slider', require('./slider').get);
 router.get('/youtube', require('./youtube').get);
+
 router.get('/data-json', require('./data-json').get);
-router.get('/company', require('./company').get);
-router.get('/company/:id', require('./companyID').get);
+router.get('/company', require('./dj-company').get);
+router.get('/company/:id', require('./dj-companyID').get);
+
 router.get('/autocomplete', require('./autocomplete').get);
+
+router.get('/simple-chat', require('./simple-chat').get);
+router.use('/subscribe', require('./sc-subscribe').set);
+router.use('/publish',  require('./sc-publish').set);
 
 
 
@@ -21,7 +24,22 @@ router.get('/autocomplete', require('./autocomplete').get);
 //Chat_________________________________________________________________________________________________________________
 
 
-var User = require('scripts/user').User;
+var config = require('config');
+var expressSession = require('express-session');
+var mongoose = require('scripts/mongoose');
+var MongoStore = require('connect-mongo')(expressSession);
+
+router.use('/login-chat', function(req, res, next) {
+    res.render('login-chat', {
+        title: 'Slider',
+        jumbotitle: 'Chat',
+        jumbotext: 'Implementation of a chat with support sessions, the authorization and templating'
+    });
+});
+
+
+
+var User = require('scripts/usersChat').User;
 
 
 router.use('/users', function(req, res, next) {
@@ -46,50 +64,22 @@ router.use('/user/:id', function(req, res, next){
 
 
 
+router.use(expressSession({
+    secret: config.get('session:secret'),
+    key: config.get('session:key'),
+    cookie: config.get('session:cookie'),
+    store: new MongoStore({mongooseConnection: mongoose.connection}),
+    resave: true,
+    saveUninitialized: true
+}));
 
-
-//Simple chat__________________________________________________________________________________________________________
-router.get('/simple-chat', function(req, res, next) {
-    res.render('simple-chat', {
-        title: 'Simple chat',
-        jumbotitle: 'Simple chat',
-        jumbotext: 'A simple embodiment of the chat.'
-    });
+router.use(function(req, res, next) {
+    req.session.numberOfVisits = req.session.numberOfVisits +1 || 1;
+    res.send('Visits: ' + req.session.numberOfVisits);
 });
 
-router.use('/subscribe', function(req, res, next) {
-    chat.subscribe(req, res);
-});
 
-router.use('/publish', function(req, res, next) {
-    var body = '';
-    /*вішаємо на "req" необхідні обработчики*/
-    req.on('readable', function() {
-        /*при отриманні чергового пакета данних ми прибавляємо
-         * його до тимчасової пєрємєнної*/
-        body += req.read();
-        /*перевірка велечини повідомлення*/
-        if (body.length > 1e4) {
-            console.error('Your message is too big for correctly work!');
-            throw new Error('Your message is too big for correctly work!');
-        }
-    }).on('end', function() {
-        /*коли данні повністю отримані, розбираємо їх як "JSON"*/
-        try {
-            body = JSON.parse(body);
-        } catch (e) {
-            /*перевірка на валідність "JSON"*/
-            console.error('Bad Request!');
-            throw new Error('Bad Request!');
-        }
-        /*публікуємо отримані і перебрані данні в "body.message".
-         * Ця команда розішле повідомлення всім, хто підписався
-         * в "subscribe"*/
-        chat.publish(body.message);
-        /*закриваємо тєкущий запрос, через який був відправлений пост*/
-        res.end("ok");
-    });
-});
+
 
 router.use(function(req, res) {
     console.error('Page not found');

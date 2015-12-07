@@ -13,7 +13,7 @@
         "secret": "KillerIsJim",
         "key": "sid",
         "cookie": {
-            "path": "/",
+            "path": "/cookie",
             "httpOnly": true,
             "maxAge": null
         }
