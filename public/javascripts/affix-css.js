@@ -1,3 +1,4 @@
+"use strict";
 $(document).ready(function(){
     $('body').scrollspy({
         target: '.bs-docs-sidebar',

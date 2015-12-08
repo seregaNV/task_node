@@ -1,7 +1,5 @@
 "use strict";
-
-$(document).ready(function()
-{
+$(document).ready(function() {
     var $show = $(".js_t16_show_res"),
         $res = $(".js_t16_original_res");
     $show.on('click', function(e){

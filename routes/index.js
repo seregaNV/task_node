@@ -1,5 +1,6 @@
 var express = require('express'),
-    router = express.Router();
+    router = express.Router(),
+    checkAuth = require('middleware/checkAuth');
 
 router.get('/', require('./main').get);
 router.get('/news', require('./news').get);
@@ -20,7 +21,8 @@ router.use('/publish',  require('./sc-publish').set);
 
 router.get('/login-chat', require('./login-chat').get);
 router.post('/login-chat', require('./login-chat').post);
-router.get('/chat', require('./chat').get);
+router.get('/chat', checkAuth, require('./chat').get);
+router.post('/logout', require('./logout').post);
 
 
 
@@ -29,31 +31,33 @@ router.get('/chat', require('./chat').get);
 
 
 var User = require('scripts/usersChat').User;
-var HttpError = require('scripts/errorHandler').HttpError;
+var ObjectID = require('mongodb').ObjectID;
+//var HttpError = require('scripts/errorHandler').HttpError;
 
-router.use('/users', function(req, res, next) {
+router.get('/users', function(req, res, next) {
     User.find({}, function (err, users) {
         if (err) return next(err);
         res.json(users);
     })
 });
-router.use('/user/:id', function(req, res, next){
+router.get('/user/:id', function(req, res, next){
+    try {
+        var id = new ObjectID(req.params.id);
+    } catch (e) {
+        next(404);
+        return;
+    }
     User.findById(req.params.id, function(err, user){
         //При надобності, організувати правильну обробку ошибок
         if (err) return next(err);
         if (!user) {
-            console.error('User not found');
-            throw new Error('User not found');
+            //console.error('User not found');
+            //throw new Error('User not found');
             //next(new HttpError(404, 'User not found.'));
         }
         res.json(user);
     })
 });
-
-
-
-
-
 
 router.use(function(req, res) {
     console.error('Page not found');

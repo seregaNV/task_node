@@ -13,7 +13,7 @@
         "secret": "KillerIsJim",
         "key": "sid",
         "cookie": {
-            "path": "/login-chat",
+            "path": "/",
             "httpOnly": true,
             "maxAge": null
         }

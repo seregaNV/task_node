@@ -1,3 +1,4 @@
+"use strict";
 $(document).ready(function() {
 
     $('#js_t10_myCarouselka').myCarouselka({

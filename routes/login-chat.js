@@ -1,4 +1,7 @@
 var User = require('scripts/usersChat').User;
+//var HttpError = require('scripts/errorHandler').HttpError;
+//var AuthError = require('scripts/userChat').AuthError;
+
 
 exports.get = function(req, res, next) {
     res.render('login-chat', {
@@ -14,34 +17,14 @@ exports.post = function(req, res, next) {
 
     User.authorize(username, password, function(err, user) {
         if (err) return next(err);
+        //if (err) {
+        //    if (err instanceof AuthError) {
+        //        return next(new HttpError(403, err.message))
+        //    } else {
+        //        return next(err);
+        //    }
+        //}
         req.session.user = user._id;
         res.send({});
     });
-    //async.waterfall([
-    //    function(callback) {
-    //        User.findOne({username: username}, callback);
-    //    },
-    //    function(user, callback) {
-    //        if (user) {
-    //            if (user.checkPassword(password)) {
-    //                callback(null, user);
-    //            } else {
-    //                //next('Wron password');
-    //                throw new Error('Wron password');
-    //            }
-    //        } else {
-    //            var user = new User({username: username, password: password});
-    //            user.save(function(err) {
-    //                if (err) return next(err);
-    //                callback(null, user);
-    //                //... 200 OK
-    //            });
-    //        }
-    //    }
-    //], function(err, user) {
-    //    //console.log(session.user);
-    //    if (err) return next(err);
-    //    req.session.user = user._id;
-    //    res.send({});
-    //});
 };
