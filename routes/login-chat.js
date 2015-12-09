@@ -1,17 +1,18 @@
+var express = require('express');
+var router = express.Router();
 var User = require('scripts/usersChat').User;
 //var HttpError = require('scripts/errorHandler').HttpError;
 //var AuthError = require('scripts/userChat').AuthError;
 
-
-exports.get = function(req, res, next) {
+router.get('/', function(req, res, next) {
     res.render('login-chat', {
         title: 'Authorization',
         jumbotitle: 'Authorization',
         jumbotext: 'Implementation of a chat with support sessions, the authorization and templating'
     });
-};
+});
 
-exports.post = function(req, res, next) {
+router.post('/', function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
 
@@ -27,4 +28,6 @@ exports.post = function(req, res, next) {
         req.session.user = user._id;
         res.send({});
     });
-};
+});
+
+module.exports = router;

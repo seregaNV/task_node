@@ -1,4 +1,7 @@
-exports.get = function(req, res, next) {
+var express = require('express');
+var router = express.Router();
+
+router.get('/autocomplete', function(req, res, next) {
     var companyData = require('../data/task.json'),
         valueOfQuery = req.query.query;
 
@@ -75,4 +78,6 @@ exports.get = function(req, res, next) {
         console.error('Incorrect value of "query"');
         throw new Error('Incorrect value of "query"');
     }
-};
+});
+
+module.exports = router;

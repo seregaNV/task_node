@@ -47,6 +47,7 @@ $(document).ready(function() {
 
     $searchResult.on('click', 'div', function(){
         $('#js_t18_search_box').val($(this).text());
+        window.location.href = "?query=" + $(this).text();
     });
 
     $('html').on('click', function(){

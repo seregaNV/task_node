@@ -2,30 +2,43 @@ var express = require('express'),
     router = express.Router(),
     checkAuth = require('middleware/checkAuth');
 
-router.get('/', require('./main').get);
-router.get('/news', require('./news').get);
-router.get('/blog', require('./blog').get);
-router.get('/hash-map', require('./hash-map').get);
-router.get('/slider', require('./slider').get);
-router.get('/youtube', require('./youtube').get);
-
-router.get('/data-json', require('./data-json').get);
-router.get('/company', require('./dj-company').get);
-router.get('/company/:id', require('./dj-companyID').get);
-
-router.get('/autocomplete', require('./autocomplete').get);
-
-router.get('/simple-chat', require('./simple-chat').get);
-router.use('/subscribe', require('./sc-subscribe').set);
-router.use('/publish',  require('./sc-publish').set);
-
-router.get('/login-chat', require('./login-chat').get);
-router.post('/login-chat', require('./login-chat').post);
-router.get('/chat', checkAuth, require('./chat').get);
-router.post('/logout', require('./logout').post);
+router.get('/', function(req, res, next) {
+    res.render('main', {
+        title: 'Tasks'
+    });
+});
 
 
 
+
+
+
+//router.get('/', require('./main').get);
+//router.get('/news', require('./news').get);
+//router.get('/blog', require('./blog').get);
+//router.get('/hash-map', require('./hash-map').get);
+//router.get('/slider', require('./slider').get);
+//router.get('/youtube', require('./youtube').get);
+//
+//
+//router.get('/autocomplete', require('./autocomplete').get);
+//
+//router.get('/login-chat', require('./login-chat').get);
+//router.post('/login-chat', require('./login-chat').post);
+//router.get('/chat', checkAuth, require('./chat').get);
+//router.post('/logout', require('./logout').post);
+
+
+
+
+//
+//router.get('/simple-chat', require('./simple-chat').get);
+//router.use('/subscribe', require('./sc-subscribe').set);
+//router.use('/publish',  require('./sc-publish').set);
+//
+//router.get('/data-json', require('./data-json').get);
+//router.get('/company', require('./dj-company').get);
+//router.get('/company/:id', require('./dj-companyID').get);
 //Chat_________________________________________________________________________________________________________________
 
 
@@ -58,10 +71,10 @@ router.get('/user/:id', function(req, res, next){
         res.json(user);
     })
 });
-
-router.use(function(req, res) {
-    console.error('Page not found');
-    throw new Error('Page not found');
-});
+//
+//router.use(function(req, res) {
+//    console.error('Page not found');
+//    throw new Error('Page not found');
+//});
 
 module.exports = router;

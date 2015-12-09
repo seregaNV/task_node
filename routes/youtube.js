@@ -1,4 +1,7 @@
-exports.get = function(req, res, next) {
+var express = require('express');
+var router = express.Router();
+
+router.get('/', function(req, res, next) {
     var YouTube = require('../scripts/t16_youtube'),
         youTubeAPI = new YouTube(),
         keyAPI,
@@ -188,4 +191,6 @@ exports.get = function(req, res, next) {
         console.error('Server Error');
         throw new Error('Server Error');
     }
-};
+});
+
+module.exports = router;

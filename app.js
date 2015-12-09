@@ -4,8 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+//var company = require("company");
 var routes = require('./routes/index');
+var simpleChat = require('./routes/simple-chat');
+var dataJson = require('./routes/data-json');
+var autocomplete = require('./routes/autocomplete');
+//var routes = require('./routes/main');
 //var users = require('./routes/users');
 
 var app = express();
@@ -26,9 +30,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-
-
 
 var config = require('config');
 var expressSession = require('express-session');
@@ -52,9 +53,11 @@ app.use(expressSession({
 app.use(require('middleware/loadUser'));
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', routes);
-//app.use('/users', users);
 
+app.use('/', routes);
+app.use(simpleChat);
+app.use(dataJson);
+app.use(autocomplete);
 
 //var errorhandler = require('errorhandler');
 //var HttpError = require('scripts/errorHandler').HttpError;
