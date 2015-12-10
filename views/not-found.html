@@ -1,11 +1,13 @@
 {% extends 'tasks2.html' %}
 
 {% block tasks2_content %}
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 help-border-left indent">
-        <h2>{{ header }}</h2>
-        <p>{{ message }}</p>
-        <hr>
-        <p>To return to the companies search, click on the button:</p>
-        <a href="http://localhost:3000/autocomplete"><button type="button" class="btn btn-default">Home page</button></a>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 help-border-left">
+        <div class="indent">
+            <h2>{{ header }}</h2>
+            <p>{{ message }}</p>
+            <hr>
+            <p>To return to the companies search, click on the button:</p>
+        </div>
+        <a href="http://localhost:3000/autocomplete" class="btn btn-default">Home page</a>
     </div>
 {% endblock %}

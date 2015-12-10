@@ -29,7 +29,9 @@
 
         {% for info in container.items %}
             <div class="thumbnail t16_queryString">
-                <img src="{{ info.thumbnails }}" class="img-thumbnail">
+                {% if info.type !== "channel" %}
+                    <img src="{{ info.thumbnails }}" class="img-thumbnail">
+                {% endif %}
                 <div class="caption">
                     <dl class="dl-horizontal">
                         <dt>Title:</dt>

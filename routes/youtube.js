@@ -1,16 +1,15 @@
 var express = require('express');
-var router = express.Router();
+var router = express.Router(),
+    YouTube = require('../scripts/t16_youtube'),
+    youTubeAPI = new YouTube(),
+    keyAPI,
+    keywords,
+    videoId,
+    playlistId,
+    quantityResults,
+    results;
 
-router.get('/', function(req, res, next) {
-    var YouTube = require('../scripts/t16_youtube'),
-        youTubeAPI = new YouTube(),
-        keyAPI,
-        keywords,
-        videoId,
-        playlistId,
-        quantityResults,
-        results,
-        queryString;
+router.get('/youtube', function(req, res, next) {
 
     keyAPI = req.query.setKey;
     youTubeAPI.setKey(keyAPI);
@@ -22,12 +21,21 @@ router.get('/', function(req, res, next) {
     if (keyAPI == "") {
         console.error('You have not entered the Key.');
         throw new Error('You have not entered the Key.');
+    } else if (keyAPI && !(keywords || videoId || playlistId)) {
+        console.error('You must fill any field of: "Keywords", "Video ID" or "Playlist ID".');
+        throw new Error('You must fill any field of: "Keywords", "Video ID" or "Playlist ID".');
     } else if ((keywords && videoId) || (videoId && playlistId) || (keywords && playlistId)) {
         console.error('You must fill in only one field of: "Keywords", "Video ID" or "Playlist ID".');
         throw new Error('You must fill in only one field of: "Keywords", "Video ID" or "Playlist ID".');
-    } else if (keywords) {
-        youTubeAPI.search(keywords, quantityResults, function(error, result) {
-            queryString = youTubeAPI.getUrl('search');
+    } else {
+        next();
+    }
+});
+
+router.get('/youtube', function(req, res, next) {
+
+    if (keywords) {
+        youTubeAPI.search(keywords, quantityResults, function (error, result) {
             if (result) {
                 container = {};
                 container.keywords = keywords;
@@ -70,7 +78,7 @@ router.get('/', function(req, res, next) {
                     title: 'Keyword search',
                     jumbotitle: 'Task 16',
                     jumbotext: 'Sending a request to the API YouTube and processing response',
-                    queryString: queryString,
+                    queryString: youTubeAPI.link,
                     container: container,
                     message: results
                 });
@@ -80,7 +88,7 @@ router.get('/', function(req, res, next) {
                     title: 'Response error',
                     jumbotitle: 'Task 16',
                     jumbotext: 'Response from API YouTube about errors',
-                    queryString: queryString,
+                    queryString: youTubeAPI.link,
                     error: error,
                     message: results
                 });
@@ -89,9 +97,15 @@ router.get('/', function(req, res, next) {
                 throw new Error('Server Error');
             }
         });
-    } else if (videoId) {
-        youTubeAPI.getById(videoId, function(error, result) {
-            queryString = youTubeAPI.getUrl('videos');
+    } else {
+        next();
+    }
+});
+
+router.get('/youtube', function(req, res, next) {
+
+    if (videoId) {
+        youTubeAPI.getById(videoId, function (error, result) {
             if (result) {
                 container = {};
                 container.videoId = result.items[0].id;
@@ -109,12 +123,12 @@ router.get('/', function(req, res, next) {
                 container.commentCount = result.items[0].statistics.commentCount;
                 results = JSON.stringify(result, null, 2);
                 containerr = JSON.stringify(container, null, 2);
-                console.log(containerr);
+                //console.log(containerr);
                 res.render('youtube-video-info', {
                     title: 'Information about the video',
                     jumbotitle: 'Task 16',
                     jumbotext: 'Sending a request to the API YouTube and processing response',
-                    queryString: queryString,
+                    queryString: youTubeAPI.link,
                     container: container,
                     message: results
                 });
@@ -124,7 +138,7 @@ router.get('/', function(req, res, next) {
                     title: 'Response error',
                     jumbotitle: 'Task 16',
                     jumbotext: 'Response from API YouTube about errors',
-                    queryString: queryString,
+                    queryString: youTubeAPI.link,
                     error: error,
                     message: results
                 });
@@ -133,9 +147,15 @@ router.get('/', function(req, res, next) {
                 throw new Error('Server Error');
             }
         });
-    } else if (playlistId) {
+    } else {
+        next();
+    }
+});
+
+router.get('/youtube', function(req, res, next) {
+
+    if (playlistId) {
         youTubeAPI.getPlayListById(playlistId, quantityResults, function(error, result) {
-            queryString = youTubeAPI.getUrl('playlistItems');
             if (result) {
                 container = {};
                 container.totalResults = result.pageInfo.totalResults;
@@ -162,7 +182,7 @@ router.get('/', function(req, res, next) {
                     title: 'Information about the playlist',
                     jumbotitle: 'Task 16',
                     jumbotext: 'Sending a request to the API YouTube and processing response',
-                    queryString: queryString,
+                    queryString: youTubeAPI.link,
                     container: container,
                     message: results
                 });
@@ -172,7 +192,7 @@ router.get('/', function(req, res, next) {
                     title: 'Response error',
                     jumbotitle: 'Task 16',
                     jumbotext: 'Response from API YouTube about errors',
-                    queryString: queryString,
+                    queryString: youTubeAPI.link,
                     error: error,
                     message: results
                 });
@@ -181,7 +201,13 @@ router.get('/', function(req, res, next) {
                 throw new Error('Server Error');
             }
         });
-    } else if (!req.query[0]) {
+    } else {
+        next();
+    }
+});
+
+router.get('/youtube', function(req, res, next) {
+    if (!req.query[0]) {
         res.render('youtube', {
             title: 'API YouTube',
             jumbotitle: 'Task 16',

@@ -22,7 +22,8 @@ var YouTube = function() {
     };
 
     _this.getUrl = function(path) {
-        return _this.url + path + '?' + queryString.stringify(_this.params);
+        _this.link = _this.url + path + '?' + queryString.stringify(_this.params);
+        return _this.link;
     };
 
     _this.getParts = function() {
@@ -55,21 +56,21 @@ var YouTube = function() {
         };
     };
 
-    _this.clearParts = function() {
+    _this.clear = function() {
         _this.parts = [];
+        _this.params = {};
     };
 
     _this.search = function(query, maxResults, callback) {
-        _this.clearParts();
         _this.addPart('snippet');
         _this.addParam('part', _this.getParts());
         _this.addParam('q', query);
         _this.addParam('maxResults', maxResults);
         _this.request(_this.getUrl('search'), callback);
+        _this.clear();
     };
 
     _this.getById = function(id, callback) {
-        _this.clearParts();
         _this.addPart('snippet');
         _this.addPart('contentDetails');
         _this.addPart('statistics');
@@ -77,12 +78,11 @@ var YouTube = function() {
         _this.addParam('part', _this.getParts());
         _this.addParam('id', id);
         _this.request(_this.getUrl('videos'), callback);
+        _this.clear();
     };
 
 
     _this.getPlayListById = function(id, maxResults, callback) {
-        _this.clearParts();
-
         _this.addPart('contentDetails');
         _this.addPart('id');
         _this.addPart('snippet');
@@ -91,6 +91,7 @@ var YouTube = function() {
         _this.addParam('playlistId', id);
         _this.addParam('maxResults', maxResults);
         _this.request(_this.getUrl('playlistItems'), callback);
+        _this.clear();
     };
 };
 
