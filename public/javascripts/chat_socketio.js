@@ -13,8 +13,15 @@ $(document).ready(function(){
         return false;
     }
     socket
-        .on('message', function(message) {
-            $('<li>', {text: message}).appendTo(ul);
+        .on('message', function(username, message) {
+            console.log('111111111111111111111111111111    -    ' + username);
+            $('<li>', {text: username + '>' + message}).appendTo(ul);
+        })
+        .on('leave', function(username) {
+            $('<li>', {text: username + ' left the chat'}).appendTo(ul);
+        })
+        .on('join', function(username) {
+            $('<li>', {text: username + ' entered the chat'}).appendTo(ul);
         })
         .on('connect', function() {
             $('<li>', {text: 'connection is established...'}).appendTo(ul);
