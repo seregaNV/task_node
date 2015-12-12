@@ -39,7 +39,7 @@ app.use(expressSession({
     cookie: config.get('session:cookie'),
     store: new MongoStore({mongooseConnection: mongoose.connection}),
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: false
 }));
 
 //app.use(function(req, res, next) {

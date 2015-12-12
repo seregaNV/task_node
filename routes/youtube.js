@@ -7,10 +7,10 @@ var router = express.Router(),
     videoId,
     playlistId,
     quantityResults,
-    results;
+    results,
+    resError;
 
 router.get('/youtube', function(req, res, next) {
-
     keyAPI = req.query.setKey;
     youTubeAPI.setKey(keyAPI);
     keywords = req.query.keywords;
@@ -83,18 +83,8 @@ router.get('/youtube', function(req, res, next) {
                     message: results
                 });
             } else if (error) {
-                results = JSON.stringify(error, null, 2);
-                res.render('youtube-error', {
-                    title: 'Response error',
-                    jumbotitle: 'Task 16',
-                    jumbotext: 'Response from API YouTube about errors',
-                    queryString: youTubeAPI.link,
-                    error: error,
-                    message: results
-                });
-            } else {
-                console.error('Server Error');
-                throw new Error('Server Error');
+                resError = error;
+                next();
             }
         });
     } else {
@@ -133,18 +123,8 @@ router.get('/youtube', function(req, res, next) {
                     message: results
                 });
             } else if (error) {
-                results = JSON.stringify(error, null, 2);
-                res.render('youtube-error', {
-                    title: 'Response error',
-                    jumbotitle: 'Task 16',
-                    jumbotext: 'Response from API YouTube about errors',
-                    queryString: youTubeAPI.link,
-                    error: error,
-                    message: results
-                });
-            } else {
-                console.error('Server Error');
-                throw new Error('Server Error');
+                resError = error;
+                next();
             }
         });
     } else {
@@ -187,18 +167,8 @@ router.get('/youtube', function(req, res, next) {
                     message: results
                 });
             } else if (error) {
-                results = JSON.stringify(error, null, 2);
-                res.render('youtube-error', {
-                    title: 'Response error',
-                    jumbotitle: 'Task 16',
-                    jumbotext: 'Response from API YouTube about errors',
-                    queryString: youTubeAPI.link,
-                    error: error,
-                    message: results
-                });
-            } else {
-                console.error('Server Error');
-                throw new Error('Server Error');
+                resError = error;
+                next();
             }
         });
     } else {
@@ -207,12 +177,29 @@ router.get('/youtube', function(req, res, next) {
 });
 
 router.get('/youtube', function(req, res, next) {
-    if (!req.query[0]) {
+    if (!resError) {
         res.render('youtube', {
             title: 'API YouTube',
             jumbotitle: 'Task 16',
             jumbotext: 'Sending a request to the API YouTube and processing response'
         });
+    } else {
+        next();
+    }
+});
+
+router.get('/youtube', function(req, res, next) {
+    if (resError) {
+        results = JSON.stringify(resError, null, 2);
+        res.render('youtube-error', {
+            title: 'Response error',
+            jumbotitle: 'Task 16',
+            jumbotext: 'Response from API YouTube about errors',
+            queryString: youTubeAPI.link,
+            error: resError,
+            message: results
+        });
+        resError = '';
     } else {
         console.error('Server Error');
         throw new Error('Server Error');

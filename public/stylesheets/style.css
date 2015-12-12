@@ -35,7 +35,7 @@
 
 /*роздєлітель між стовпцями*/
 .help-border-left{
-    border-left: 3px solid rgba(174, 101, 255, 0.37);
+    border-left: 3px solid rgb(219, 170, 255);
 }
 
 /*параметри Аффікса*/
@@ -133,46 +133,68 @@
 /*}*/
 
 
+/*Оформлення інпутів*/
+.task_input:focus{
+    border-color: rgb(212, 136, 255);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(219, 170, 255);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(219, 170, 255);
+}
 
 
 
 
-/*Настройка автокомпліта (Task 18)*/
-.search_area{
-    position: relative;
-}
-#js_t18_search_box{
-    width:400px;
-}
-#js_t18_search_result{
-    margin-top: 10px;
-    margin-left: 60px;
-    position: absolute;
-    width: 400px;
-    padding-left: 30px;
-    display:none;
-    background-color: rgba(36, 132, 255, 0.07);
-    border:1px solid rgba(36, 132, 255, 0.48);
-    top: 24px;
-    left: 0;
-}
-#js_t18_search_result .js_t18_advice_variant{
-    text-indent: 0;
-    cursor: pointer;
-    padding-left: 10px;
-    margin-left: -30px;
-    text-align: left;
-    color: #333;
-}
-#js_t18_search_result .js_t18_advice_variant:hover{
-    background-color: rgba(36, 132, 255, 0.12);
-}
-#js_t18_search_result .active{
-    text-indent: 0;
-    padding-left: 10px;
-    margin-left: -30px;
-    background-color: rgba(36, 132, 255, 0.12);
-}
+/*/!*Настройка автокомпліта (Task 18)*!/*/
+/*#t18_search_area{*/
+    /*position: relative;*/
+/*}*/
+/*#js_t18_search_box{*/
+    /*width:400px;*/
+/*}*/
+
+/*.task_input:focus{*/
+    /*border-color: rgb(212, 136, 255);*/
+    /*-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(219, 170, 255);*/
+    /*box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(219, 170, 255);*/
+/*}*/
+
+/*#js_t18_search_result{*/
+    /*margin-top: 10px;*/
+    /*margin-left: 60px;*/
+    /*position: absolute;*/
+    /*width: 400px;*/
+    /*padding-left: 30px;*/
+    /*display:none;*/
+    /*top: 24px;*/
+    /*background-color: #fff;*/
+    /*left: 0;*/
+    /*border-radius: 4px;*/
+    /*border: 1px solid rgb(212, 136, 255);*/
+    /*-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(219, 170, 255);*/
+    /*box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(219, 170, 255);*/
+/*}*/
+
+/*#js_t18_search_result .js_t18_advice_variant{*/
+    /*text-indent: 0;*/
+    /*cursor: pointer;*/
+    /*padding-left: 10px;*/
+    /*margin-left: -30px;*/
+    /*text-align: left;*/
+    /*color: #333;*/
+/*}*/
+/*#js_t18_search_result .js_t18_advice_variant:hover{*/
+    /*background-color: rgb(229, 200, 255);*/
+/*}*/
+/*#js_t18_search_result .active{*/
+    /*text-indent: 0;*/
+    /*padding-left: 10px;*/
+    /*margin-left: -30px;*/
+    /*background-color: rgb(229, 200, 255);*/
+/*}*/
+
+
+
+
+
 
 /*Настройки для API YouTube (Task 16)*/
 .js_t16_show_res{
@@ -191,4 +213,3 @@
 .t16_queryString{
     word-wrap: break-word;
 }
-/*word-break: break-all;*/
