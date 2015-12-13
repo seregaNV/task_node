@@ -1,8 +1,8 @@
 
 var config = require('config');
 var connect = require('connect');
-var cookieParser = require('cookie-parser');
 var async = require('async');
+var cookieParser = require('cookie-parser');
 var cookie = require('cookie');
 var sessionStore = require('scripts/sessionStore');
 var User = require('scripts/usersChat').User;
@@ -72,11 +72,32 @@ module.exports = function(server) {
             //callback(err)
         });
     });
-    //io.set('authorization', function (handshake, callback) {
-    //});
+
+    io.on('session:reload', function() {
+        //var client = io.eio.clients[io];
+        //var clients = io.sockets.clients();
+        console.log('--------------test_session:reload------------------------------------');
+        //console.log(sid);
+        //var clients = io.sockets.clients();
+        //clients.forEach(function(client) {
+        //    if (client.handshake.session.id != sid) return;
+        //    loadSession(sid, function(err, session) {
+        //        if (err) {
+        //            client.emit('error', 'server error');
+        //            client.disconnect();
+        //            return;
+        //        }
+        //        if (!session) {
+        //            client.emit('error', 'username unauthorized');
+        //            client.disconnect();
+        //            return;
+        //        }
+        //        client.handshake.session = session;
+        //    });
+        //});
+    });
 
     io.on('connection', function (socket) {
-        //console.log('111111111111111111111111111111' + JSON.stringify(socket.handshake, null, 2));
         var username = socket.request.user.get('username');
         socket.broadcast.emit('join', username);
         socket.on('message', function (text, callback) {
@@ -86,6 +107,10 @@ module.exports = function(server) {
         socket.on('disconnect', function() {
             socket.broadcast.emit('leave', username);
         });
+        //socket.on('session:reload', function() {
+        //    console.log('--------------test_session:reload------------------------------------');
+        //    //console.log(sid);
+        //});
     });
     return io;
 };

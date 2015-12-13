@@ -89,4 +89,7 @@ function onListening() {
     debug('Listening on ' + bind);
 }
 
-require('scripts/socket')(server);
+app.set('test', 'testing connect');
+
+var io = require('scripts/socket')(server);
+app.set('io', io);

@@ -37,9 +37,24 @@ router.get('/chat', checkAuth, function(req, res, next) {
     });
 });
 
-router.post('/logout', function(req, res) {
-    req.session.destroy();
-    res.redirect('/');
+//io.sockets.on('connect', function (socket) {
+//    console.log('--------------test_1------------------------------------');
+//    socket.emit('session:reload', sid);
+//    console.log('--------------test_2------------------------------------');
+//});
+router.post('/logout', function(req, res, next) {
+    var sid = req.session.id;
+    var s = req.session;
+    var io = req.app.get('io');
+    var clients = io.eio.client[sid];
+    console.log(clients);
+    //var test = req.app.get('test');
+    //console.log('--------------test------------------------------------   ' + test);
+    req.session.destroy(function(err) {
+        io.emit('session:reload', sid, clients);
+        if (err) return next(err);
+        res.redirect('/');
+    });
 });
 
 module.exports = router;
