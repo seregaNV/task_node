@@ -73,44 +73,51 @@ module.exports = function(server) {
         });
     });
 
-    io.on('session:reload', function() {
-        //var client = io.eio.clients[io];
-        //var clients = io.sockets.clients();
+    io.on('session:reload', function(sid) {
         console.log('--------------test_session:reload------------------------------------');
-        //console.log(sid);
-        //var clients = io.sockets.clients();
-        //clients.forEach(function(client) {
-        //    if (client.handshake.session.id != sid) return;
-        //    loadSession(sid, function(err, session) {
-        //        if (err) {
-        //            client.emit('error', 'server error');
-        //            client.disconnect();
-        //            return;
-        //        }
-        //        if (!session) {
-        //            client.emit('error', 'username unauthorized');
-        //            client.disconnect();
-        //            return;
-        //        }
-        //        client.handshake.session = session;
-        //    });
-        //});
+        console.log(sid);
     });
 
+
+    //socket.on('session:reload', function() {
+    //    //var client = io.eio.clients[io];
+    //    //var clients = io.sockets.clients();
+    //    console.log('--------------test_session:reload------------------------------------');
+    //    //console.log(sid);
+    //    //var clients = io.sockets.clients();
+    //    //clients.forEach(function(client) {
+    //    //    if (client.handshake.session.id != sid) return;
+    //    //    loadSession(sid, function(err, session) {
+    //    //        if (err) {
+    //    //            client.emit('error', 'server error');
+    //    //            client.disconnect();
+    //    //            return;
+    //    //        }
+    //    //        if (!session) {
+    //    //            client.emit('error', 'username unauthorized');
+    //    //            client.disconnect();
+    //    //            return;
+    //    //        }
+    //    //        client.handshake.session = session;
+    //    //    });
+    //    //});
+    //});
+
     io.on('connection', function (socket) {
+        //console.log('--------------test_session:reload------------------------------------ ');
         var username = socket.request.user.get('username');
         socket.broadcast.emit('join', username);
         socket.on('message', function (text, callback) {
             socket.broadcast.emit('message', username, text);
             callback && callback();
         });
+        //socket.on('session:reload', function(test) {
+        //    console.log('--------------test_session:reload------------------------------------ ' + test);
+        //    //console.log(sid);
+        //});
         socket.on('disconnect', function() {
             socket.broadcast.emit('leave', username);
         });
-        //socket.on('session:reload', function() {
-        //    console.log('--------------test_session:reload------------------------------------');
-        //    //console.log(sid);
-        //});
     });
     return io;
 };

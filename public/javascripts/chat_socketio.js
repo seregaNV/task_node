@@ -27,27 +27,41 @@ $(document).ready(function(){
             form.find('button').prop('disabled', true);
             input.prop('disabled', true);
         })
-        .on('session:reload', function(sid, clients) {
-            console.log('--------------test_session:reload------------------------------------');
-            console.log(sid);
-            //var clients = io.sockets.clients();
-            //clients.forEach(function(client) {
-            //    if (client.handshake.session.id != sid) return;
-            //    loadSession(sid, function(err, session) {
-            //        if (err) {
-            //            client.emit('error', 'server error');
-            //            client.disconnect();
-            //            return;
-            //        }
-            //        if (!session) {
-            //            client.emit('error', 'username unauthorized');
-            //            client.disconnect();
-            //            return;
-            //        }
-            //        client.handshake.session = session;
-            //    });
-            //});
+        .on('logout', function() {
+            location.href = '/';
+        })
+        .on('error', function(reason) {
+            if (reason == 'handshake unauthorized') {
+                printStatus('You are left the chat');
+            } else {
+                setTimeout(function() {
+                    socket.socket.connect();
+                }, 500);
+            }
         });
+        //.on('session:reload', function(sid, clients) {
+        //    //console.log('--------------test_session:reload------------------------------------');
+        //    //console.log(clients);
+        //    //var checkSubstring = clients.indexOf(sid);
+        //    //console.log(checkSubstring);
+        //    //var clients = io.sockets.clients();
+        //    //clients.forEach(function(client) {
+        //    //    if (client.handshake.session.id != sid) return;
+        //    //    loadSession(sid, function(err, session) {
+        //    //        if (err) {
+        //    //            client.emit('error', 'server error');
+        //    //            client.disconnect();
+        //    //            return;
+        //    //        }
+        //    //        if (!session) {
+        //    //            client.emit('error', 'username unauthorized');
+        //    //            client.disconnect();
+        //    //            return;
+        //    //        }
+        //    //        client.handshake.session = session;
+        //    //    });
+        //    //});
+        //});
 
     function sendMessage() {
         var text = input.val();
