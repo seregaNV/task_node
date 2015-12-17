@@ -5,24 +5,23 @@
         var settings = {
             pathToFile: '',
             inputType: 'text',
-            inputName: 'query',
-            placeHolder: '',
+            //inputName: 'query',
+            //placeHolder: '',
             autoFocus: false,
-            colorStyle: 'defaultStyle' //selfStyle, successStyle, warningStyle, errorStyle
+            colorStyle: 'defaultStyle' //'selfStyle', 'successStyle', 'warningStyle', 'errorStyle'
         };
 
         return this.each(function() {
             if (options)$.extend(settings, options);
 
-            var $this = $(this),
-                $searchBox = $this,
+            var $searchBox = $(this),
                 $searchResult,
 
                 inputValueLength,
                 inputValue = '',
                 suggestSelected = 0,
                 quantityOfResults = 0;
-            if ($this.attr('type') == settings.inputType) addElements();
+            if ($searchBox.attr('type') == settings.inputType) addElements();
 
             function addElements() {
 
@@ -31,15 +30,13 @@
 
                 $searchBox.addClass('js_myAutocomplete_search_box');
                 $searchBox.attr('autocomplete', 'off');
-                //$searchBox.addClass('task_input');//подивитися чи потрібно?
-                $searchBox.attr('name', settings.inputName);//поміняти на autocomplete
-                $searchBox.attr('placeholder', settings.placeHolder);
-                $searchBox.attr('value', '');
+                if (settings.inputName) $searchBox.attr('name', settings.inputName);
+                if (settings.placeHolder) $searchBox.attr('placeholder', settings.placeHolder);
+                //$searchBox.attr('value', '');
 
                 $searchBox.after('<div class="js_myAutocomplete_search_result"></div>');
                 $searchResult = $searchBox.next();
                 $searchResult.outerWidth($searchBox.outerWidth());
-
 
                 switch(settings.colorStyle) {
                     case 'defaultStyle':
@@ -59,14 +56,13 @@
                         break;
                 }
 
-
                 if (settings.autoFocus) $searchBox.focus();
                 keyUp();
                 listeners();
             }
 
             function keyUp() {
-                $searchResult.css({'left': $this.position().left});
+                $searchResult.css({'left': $searchBox.position().left});
                 $searchBox.keyup(function(I) {
                     if (((I.keyCode >= 48) && (I.keyCode <= 111)) || I.keyCode == 8) {
                         inputValue = $searchBox.val();
@@ -111,8 +107,8 @@
                     }
                 });
 
-                $this.next().on('click', 'div', function(){
-                    $this.val($(this).text());
+                $searchBox.next().on('click', 'div', function(){
+                    $searchBox.val($(this).text());
                 });
 
                 $('html').on('click', function(){
@@ -129,7 +125,7 @@
             }
 
             function selecting(n){
-                var $searchResultDiv = $this.next('.js_myAutocomplete_search_result').find('div');
+                var $searchResultDiv = $searchBox.next('.js_myAutocomplete_search_result').find('div');
                 $searchResultDiv.eq(suggestSelected-1).removeClass('active');
 
                 if(n == 1 && suggestSelected < quantityOfResults){

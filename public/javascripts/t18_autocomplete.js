@@ -2,12 +2,13 @@
 $(document).ready(function() {
 
     $("input.task_input").myAutocomplete({
-        pathToFile: '/task.json',
-        placeHolder: 'Company name',
-        colorStyle: 'selfStyle' //'warningStyle', 'errorStyle', 'defaultStyle', 'successStyle';
-        //inputName: 'autocomplete'
-        //inputType: 'email'
-        //autoFocus: true
+        pathToFile: '/task.json',       //the path to the json file (default: "")
+        placeHolder: 'Company name',    //placeHolder attribute value (default: "")
+        colorStyle: 'selfStyle'         /*Styles of elements autocomplete (default: "defaultStyle"),
+                                            (others: 'selfStyle', 'warningStyle', 'errorStyle', 'successStyle');*/
+        //inputName: 'autocomplete'     //name attribute value (default: "query")
+        //inputType: 'email'            //type attribute value (default: "text")
+        //autoFocus: true               //activation of focus true/false (default: false)
     });
     $("input.default_style").myAutocomplete({
         pathToFile: '/task.json',

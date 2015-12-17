@@ -20,7 +20,7 @@ router.get('/autocomplete', function(req, res, next) {
 
 router.get('/autocomplete', function(req, res, next) {
     if (!req.query.query) {
-        res.render('autocomplete', {
+        res.render('test-my-autocomplete', {
             title: 'Autocomplete',
             jumbotitle: 'Task 18',
             jumbotext: 'Implementation of autocomplete to search for companies'
