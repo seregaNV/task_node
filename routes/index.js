@@ -19,6 +19,12 @@ router.get('/blog', function(req, res, next) {
     });
 });
 
+router.get('/company-db', function(req, res, next) {
+    ddd = req.query.query;
+    res.send('tobi');
+    console.log('ddd ' + ddd);
+});
+
 //Chat_________________________________________________________________________________________________________________
 
 var User = require('scripts/usersChat').User;

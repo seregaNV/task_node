@@ -50,6 +50,7 @@ router.get('/company/:id', function(req, res, next) {
 });
 
 router.get('/data-json', function(req, res, next) {
+    var User = require('scripts/usersChat').User;
     var valueOfQuery = req.query.autocomplete;
     if (valueOfQuery == ''){
         res.render('not-found', {

@@ -23,14 +23,14 @@ function loadUser(session, callback) {
         console.log('Session %s is anonymous', session.id);
         return callback(null, null);
     }
-    console.log('retrieving user: ' + session.user);
+    //console.log('retrieving user: ' + session.user);
 
     User.findById(session.user, function(err, user) {
         if (err) return callback(err);
         if (!user) {
             return callback(null, null);
         }
-        console.log('user find by id result: ' + user);
+        //console.log('user find by id result: ' + user);
         callback(null, user);
     });
 }

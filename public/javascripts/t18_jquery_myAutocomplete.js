@@ -61,6 +61,11 @@
                 listeners();
             }
 
+
+
+
+
+
             function keyUp() {
                 $searchResult.css({'left': $searchBox.position().left});
                 $searchBox.keyup(function(I) {
@@ -69,6 +74,11 @@
                         inputValueLength = inputValue.length;
                         if (inputValueLength > 2) {
                             $searchResult.html("");
+                            $.get( "/company-db", { "query": inputValue }, function(data)
+                            {
+                                var ttt = data;
+                                console.log('ttt' + ttt);
+                            });
                             $.getJSON(settings.pathToFile, {}, function(companyData) {
                                 $searchResult.append('<div class="js_t18_advice_variant">' + inputValue + '</div>');
                                 inputValue = inputValue.charAt(0).toUpperCase() + inputValue.substr(1).toLowerCase();

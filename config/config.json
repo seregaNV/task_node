@@ -9,6 +9,16 @@
             }
         }
     },
+    "mongooseCompanys": {
+        "uri": "mongodb://localhost/companys",
+        "options": {
+            "server": {
+                "socketOptions": {
+                    "keepAlive": 1
+                }
+            }
+        }
+    },
     "session": {
         "secret": "KillerIsJim",
         "key": "sid",
