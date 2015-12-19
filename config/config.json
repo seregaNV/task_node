@@ -1,15 +1,5 @@
 {
     "mongoose": {
-        "uri": "mongodb://localhost/chat",
-        "options": {
-            "server": {
-                "socketOptions": {
-                    "keepAlive": 1
-                }
-            }
-        }
-    },
-    "mongooseCompanys": {
         "uri": "mongodb://localhost/companys",
         "options": {
             "server": {

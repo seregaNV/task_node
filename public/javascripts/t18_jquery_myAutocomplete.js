@@ -74,13 +74,20 @@
                         inputValueLength = inputValue.length;
                         if (inputValueLength > 2) {
                             $searchResult.html("");
-                            $.get( "/company-db", { "query": inputValue }, function(data)
+
+
+
+                            var answer;
+                            $.get( "/company-db", {'query': inputValue}, function(data)
                             {
-                                var ttt = data;
-                                console.log('ttt' + ttt);
+                                answer = data;
+                                console.log('answer --- ' + JSON.stringify(answer, null, 2));
                             });
+
+
+
                             $.getJSON(settings.pathToFile, {}, function(companyData) {
-                                $searchResult.append('<div class="js_t18_advice_variant">' + inputValue + '</div>');
+                                $searchResult.append('<div class="js_t18_advice_variant"><i>' + inputValue + '</i></div>');
                                 inputValue = inputValue.charAt(0).toUpperCase() + inputValue.substr(1).toLowerCase();
                                 for (var i in companyData) {
                                     var company = (companyData[i]).company,

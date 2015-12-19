@@ -1,29 +1,29 @@
-var mongooseCompanys = require('scripts/mongooseCompanys');
+var mongoose = require('scripts/mongoose');
 var async = require('async');
 var companyData = require('../data/task.json');
 
-//mongooseCompanys.connection.on('open',
+//mongoose.connection.on('open',
 //    function dropDatabase(callback){
-//        var db = mongooseCompanys.connection.db;
+//        var db = mongoose.connection.db;
 //        db.dropDatabase();
 //    });
-//mongooseCompanys.disconnect();
+//mongoose.disconnect();
 
 async.series([
     open,
     dropDatabase,
     createUsers
 ], function(err, results){
-    mongooseCompanys.disconnect();
+    mongoose.disconnect();
     process.exit(err ? 255 : 0);
 });
 
 function open(callback){
-    mongooseCompanys.connection.on('open', callback);
+    mongoose.connection.on('open', callback);
 }
 
 function dropDatabase(callback){
-    var db = mongooseCompanys.connection.db;
+    var db = mongoose.connection.db;
     db.dropDatabase(callback);
 }
 

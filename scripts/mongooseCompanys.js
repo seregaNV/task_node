@@ -1,5 +1,5 @@
-var mongooseCompanys = require('mongoose'),
-    config = require('config');
-mongooseCompanys.connect(config.get('mongooseCompanys:uri'), config.get('mongooseCompanys.options'));
-
-module.exports = mongooseCompanys;
+//var mongoose = require('mongoose'),
+//    config = require('config');
+//mongoose.connect(config.get('companys:uri'), config.get('companys.options'));
+//
+//module.exports = mongoose;

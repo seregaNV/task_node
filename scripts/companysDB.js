@@ -1,5 +1,5 @@
-var mongooseCompanys = require('scripts/mongooseCompanys');
-var Schema = mongooseCompanys.Schema;
+var mongoose = require('scripts/mongoose');
+var Schema = mongoose.Schema;
 
 var schema = new Schema({
     _id: String,
@@ -10,4 +10,4 @@ var schema = new Schema({
     discription: String
 });
 
-exports.Companys = mongooseCompanys.model('Companys', schema);
+exports.Companys = mongoose.model('Companys', schema);

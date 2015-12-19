@@ -19,11 +19,20 @@ router.get('/blog', function(req, res, next) {
     });
 });
 
+var Companys = require('scripts/companysDB').Companys;
 router.get('/company-db', function(req, res, next) {
-    ddd = req.query.query;
-    res.send('tobi');
-    console.log('ddd ' + ddd);
+    Companys.findOne({company: "Geekola"}, function(err, tester){
+        var company = tester;
+        console.log(company);
+        res.send(company);
+    });
+    var pluginAsc = req.query.query;
+    console.log('pluginAsc --- ' + pluginAsc);
 });
+
+
+
+
 
 //Chat_________________________________________________________________________________________________________________
 
