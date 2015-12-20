@@ -3,7 +3,7 @@ var async = require('async');
 
 async.series([
     open,
-    dropDatabase,
+    //dropDatabase,
     requireModels,
     createUsers
 ], function(err, results){
@@ -15,10 +15,10 @@ function open(callback){
     mongoose.connection.on('open', callback);
 }
 
-function dropDatabase(callback){
-    var db = mongoose.connection.db;
-    db.dropDatabase(callback);
-}
+//function dropDatabase(callback){
+//    var db = mongoose.connection.db;
+//    db.dropDatabase(callback);
+//}
 
 function requireModels(callback){
     require('scripts/usersChat');

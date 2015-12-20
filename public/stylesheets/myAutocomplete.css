@@ -2,11 +2,6 @@
 .myAutocomplete_search_input{
     position: relative;
 }
-/*.js_myAutocomplete_search_box:focus{*/
-/*border-color: rgb(212, 136, 255);*/
-/*-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(219, 170, 255);*/
-/*box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(219, 170, 255);*/
-/*}*/
 
 .js_myAutocomplete_search_result{
     position: absolute;
@@ -14,6 +9,8 @@
     display:none;
     background-color: #fff;
     border-radius: 4px;
+    max-height: 200px;
+    overflow: auto;
 }
 
 .js_myAutocomplete_search_result .js_t18_advice_variant{
@@ -28,7 +25,10 @@
     text-indent: 0;
     padding-left: 10px;
 }
-
+.js_myAutocomplete_search_result :first-child {
+    font-style: italic;
+    color: #999;
+}
 /*default_style*/
 .js_myAutocomplete_default_style{
     border: 1px solid #66afe9;

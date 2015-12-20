@@ -5,7 +5,7 @@ var express = require('express'),
     chosenCompany;
 
 router.get('/autocomplete', function(req, res, next) {
-    if (req.query.query == "") {
+    if (req.query.autocomplete == "") {
         res.render('not-found', {
             title: 'Not found',
             jumbotitle: 'Task 18',
@@ -19,7 +19,7 @@ router.get('/autocomplete', function(req, res, next) {
 });
 
 router.get('/autocomplete', function(req, res, next) {
-    if (!req.query.query) {
+    if (!req.query.autocomplete) {
         res.render('test-my-autocomplete', {
             title: 'Autocomplete',
             jumbotitle: 'Task 18',
@@ -31,7 +31,7 @@ router.get('/autocomplete', function(req, res, next) {
 });
 
 router.get('/autocomplete', function(req, res, next) {
-    var valueOfQuery = req.query.query;
+    var valueOfQuery = req.query.autocomplete;
 
     if (valueOfQuery) {
         var partNameCompany;

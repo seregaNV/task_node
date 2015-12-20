@@ -1,5 +1,4 @@
-var mongoose = require('mongoose'),
-    config = require('config');
-mongoose.connect(config.get('mongoose:uri'), config.get('mongoose.options'));
+var mongoose = require('mongoose');
+mongoose.connect("mongodb://localhost/chat");
 
 module.exports = mongoose;

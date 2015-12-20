@@ -18,19 +18,34 @@ router.get('/blog', function(req, res, next) {
         title: 'Blog'
     });
 });
+//
+//var Companys = require('scripts/usersChat').Companys;
+//router.get('/company-db', function(req, res, next) {
+//    var pluginAsc = req.query.autocomplete;
+//    pluginAsc = pluginAsc.charAt(0).toUpperCase() + pluginAsc.substr(1).toLowerCase();
+//    var reg = new RegExp('^' + pluginAsc);
+//    var conditions = {};
+//    conditions['company'] = reg;
+//    Companys.find(conditions, function(err, tester){
+//        var company = tester;
+//        res.send(company);
+//    }).sort({company: 1});
+//});
 
-var Companys = require('scripts/companysDB').Companys;
+//       /\+/g
+var Companys = require('scripts/usersChat').Companys;
 router.get('/company-db', function(req, res, next) {
-    Companys.findOne({company: "Geekola"}, function(err, tester){
+    var pluginAsc = req.query.autocomplete;
+    //pluginAsc = pluginAsc.charAt(0).toUpperCase() + pluginAsc.substr(1).toLowerCase();
+    var reg = new RegExp(pluginAsc);
+    console.log(reg);
+    var conditions = {};
+    conditions['company'] = reg;
+    Companys.find(conditions, function(err, tester){
         var company = tester;
-        console.log(company);
         res.send(company);
-    });
-    var pluginAsc = req.query.query;
-    console.log('pluginAsc --- ' + pluginAsc);
+    }).sort({company: 1});
 });
-
-
 
 
 

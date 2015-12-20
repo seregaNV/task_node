@@ -29,15 +29,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-var config = require('config');
 var expressSession = require('express-session');
-var mongoose = require('scripts/mongoose');
 var sessionStore = require('scripts/sessionStore');
 
 app.use(expressSession({
-    secret: config.get('session:secret'),
-    key: config.get('session:key'),
-    cookie: config.get('session:cookie'),
+    secret: "KillerIsJim",
+    key: "sid",
+    cookie: {
+        "path": "/",
+        "httpOnly": true,
+        "maxAge": null
+    },
     store: sessionStore,
     resave: true,
     saveUninitialized: false

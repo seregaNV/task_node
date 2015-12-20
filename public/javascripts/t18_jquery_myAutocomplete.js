@@ -1,27 +1,29 @@
 (function($){
     "use strict";
     $.fn.myAutocomplete = function(options){
-
+        options = options || {};
         var settings = {
             pathToFile: '',
+
             inputType: 'text',
             //inputName: 'query',
             //placeHolder: '',
+            minLength: 3,
+            delay: 1,
             autoFocus: false,
             colorStyle: 'defaultStyle' //'selfStyle', 'successStyle', 'warningStyle', 'errorStyle'
         };
+        var opts = $.extend(true, {}, settings, options);
+        this.each(function(i, el) {
 
-        return this.each(function() {
-            if (options)$.extend(settings, options);
-
-            var $searchBox = $(this),
+            var $searchBox = $(el),
                 $searchResult,
 
                 inputValueLength,
                 inputValue = '',
                 suggestSelected = 0,
                 quantityOfResults = 0;
-            if ($searchBox.attr('type') == settings.inputType) addElements();
+            if ($searchBox.attr('type') == opts.inputType) addElements();
 
             function addElements() {
 
@@ -30,15 +32,16 @@
 
                 $searchBox.addClass('js_myAutocomplete_search_box');
                 $searchBox.attr('autocomplete', 'off');
-                if (settings.inputName) $searchBox.attr('name', settings.inputName);
-                if (settings.placeHolder) $searchBox.attr('placeholder', settings.placeHolder);
+                if (opts.inputName) $searchBox.attr('name', opts.inputName);
+                if (opts.placeHolder) $searchBox.attr('placeholder', opts.placeHolder);
                 //$searchBox.attr('value', '');
 
                 $searchBox.after('<div class="js_myAutocomplete_search_result"></div>');
                 $searchResult = $searchBox.next();
                 $searchResult.outerWidth($searchBox.outerWidth());
+                $searchResult.css({'left': $searchBox.position().left});
 
-                switch(settings.colorStyle) {
+                switch(opts.colorStyle) {
                     case 'defaultStyle':
                         $searchResult.addClass('js_myAutocomplete_default_style');
                         break;
@@ -56,54 +59,71 @@
                         break;
                 }
 
-                if (settings.autoFocus) $searchBox.focus();
+                if (opts.autoFocus) $searchBox.focus();
                 keyUp();
                 listeners();
             }
 
 
-
+            var timeoutID = null;
 
 
 
             function keyUp() {
-                $searchResult.css({'left': $searchBox.position().left});
                 $searchBox.keyup(function(I) {
                     if (((I.keyCode >= 48) && (I.keyCode <= 111)) || I.keyCode == 8) {
+                        if (timeoutID) clearTimeout(timeoutID);
                         inputValue = $searchBox.val();
                         inputValueLength = inputValue.length;
-                        if (inputValueLength > 2) {
-                            $searchResult.html("");
+                        if (inputValueLength > opts.minLength - 1) {
+
+                            if (opts.delay) {
+                                timeoutID = setTimeout(function() {
+                                    $searchResult.html("");
+                                    $searchResult.append('<div class="js_t18_advice_variant">' + inputValue + '</div>');
+                                    inputValue = inputValue.charAt(0).toUpperCase() + inputValue.substr(1).toLowerCase();
+
+                                    //handlerJSON();
+                                    handlerURL();
+                                    //handlerArray();
+
+                                }, opts.delay);
+                            }
 
 
 
-                            var answer;
-                            $.get( "/company-db", {'query': inputValue}, function(data)
-                            {
-                                answer = data;
-                                console.log('answer --- ' + JSON.stringify(answer, null, 2));
-                            });
-
-
-
-                            $.getJSON(settings.pathToFile, {}, function(companyData) {
-                                $searchResult.append('<div class="js_t18_advice_variant"><i>' + inputValue + '</i></div>');
-                                inputValue = inputValue.charAt(0).toUpperCase() + inputValue.substr(1).toLowerCase();
-                                for (var i in companyData) {
-                                    var company = (companyData[i]).company,
-                                        companyStr = company.slice(0, inputValueLength);
-                                    if(inputValue == companyStr){
-                                        $searchResult.show();
-                                        $searchResult.append('<div class="js_t18_advice_variant">' + company + '</div>');
-                                    }
-                                }
-                                quantityOfResults = $searchResult.children().length;
-                            });
                         } else {
                             $searchResult.hide();
                         }
                     }
                 });
+            }
+
+            function handlerURL() {
+                var query = {};
+                query[opts.inputName] = inputValue;
+
+                $.get( "/company-db", query, function(data)
+                {
+                    console.log('data --- ' + JSON.stringify(data, null, 2));
+                });
+            }
+            function handlerJSON() {
+                $.getJSON(opts.pathToFile, {}, function(companyData) {
+                    for (var i in companyData) {
+                        var company = (companyData[i]).company,
+                            companyStr = company.slice(0, inputValueLength);
+                        if(inputValue == companyStr){
+                            $searchResult.show();
+                            $searchResult.append('<div class="js_t18_advice_variant">' + company + '</div>');
+                        }
+                    }
+                    quantityOfResults = $searchResult.children().length;
+                });
+            }
+
+            function handlerArray() {
+
             }
 
             function listeners() {
