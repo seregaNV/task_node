@@ -18,32 +18,20 @@ router.get('/blog', function(req, res, next) {
         title: 'Blog'
     });
 });
-//
-//var Companys = require('scripts/usersChat').Companys;
-//router.get('/company-db', function(req, res, next) {
-//    var pluginAsc = req.query.autocomplete;
-//    pluginAsc = pluginAsc.charAt(0).toUpperCase() + pluginAsc.substr(1).toLowerCase();
-//    var reg = new RegExp('^' + pluginAsc);
-//    var conditions = {};
-//    conditions['company'] = reg;
-//    Companys.find(conditions, function(err, tester){
-//        var company = tester;
-//        res.send(company);
-//    }).sort({company: 1});
-//});
 
-//       /\+/g
 var Companys = require('scripts/usersChat').Companys;
 router.get('/company-db', function(req, res, next) {
     var pluginAsc = req.query.autocomplete;
-    //pluginAsc = pluginAsc.charAt(0).toUpperCase() + pluginAsc.substr(1).toLowerCase();
-    var reg = new RegExp(pluginAsc);
-    console.log(reg);
+    var reg = new RegExp(pluginAsc, 'i');
     var conditions = {};
     conditions['company'] = reg;
     Companys.find(conditions, function(err, tester){
-        var company = tester;
-        res.send(company);
+        var companys = [];
+        for (var i = 0; i < tester.length; i++) {
+            companys.push(tester[i].company);
+        }
+        console.log(companys);
+        res.send(companys);
     }).sort({company: 1});
 });
 

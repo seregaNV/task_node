@@ -4,14 +4,15 @@
         options = options || {};
         var settings = {
             pathToFile: '',
-
             inputType: 'text',
-            //inputName: 'query',
-            //placeHolder: '',
             minLength: 3,
             delay: 1,
+            searchInside: false,
             autoFocus: false,
             colorStyle: 'defaultStyle' //'selfStyle', 'successStyle', 'warningStyle', 'errorStyle'
+            //inputName: 'query',
+            //placeHolder: '',
+            //chooseFrom: '',
         };
         var opts = $.extend(true, {}, settings, options);
         this.each(function(i, el) {
@@ -67,6 +68,9 @@
 
             var timeoutID = null;
 
+            //var variants;
+            //var variantsOnlyBeginning;
+
 
 
             function keyUp() {
@@ -79,13 +83,11 @@
 
                             if (opts.delay) {
                                 timeoutID = setTimeout(function() {
-                                    $searchResult.html("");
-                                    $searchResult.append('<div class="js_t18_advice_variant">' + inputValue + '</div>');
-                                    inputValue = inputValue.charAt(0).toUpperCase() + inputValue.substr(1).toLowerCase();
 
-                                    //handlerJSON();
-                                    handlerURL();
                                     //handlerArray();
+                                    //handlerObject();
+                                    handlerJSON();
+                                    //handlerURL();
 
                                 }, opts.delay);
                             }
@@ -99,31 +101,98 @@
                 });
             }
 
-            function handlerURL() {
-                var query = {};
-                query[opts.inputName] = inputValue;
-
-                $.get( "/company-db", query, function(data)
-                {
-                    console.log('data --- ' + JSON.stringify(data, null, 2));
-                });
-            }
-            function handlerJSON() {
-                $.getJSON(opts.pathToFile, {}, function(companyData) {
-                    for (var i in companyData) {
-                        var company = (companyData[i]).company,
-                            companyStr = company.slice(0, inputValueLength);
-                        if(inputValue == companyStr){
-                            $searchResult.show();
-                            $searchResult.append('<div class="js_t18_advice_variant">' + company + '</div>');
-                        }
-                    }
-                    quantityOfResults = $searchResult.children().length;
-                });
-            }
-
             function handlerArray() {
 
+            }
+
+            function handlerObject() {
+
+            }
+
+
+
+
+
+
+            function handlerJSON() {
+                $.getJSON(opts.pathToFile, {}, function(companyData) {
+                    var variants = [];
+                    //var reg = new RegExp(pluginAsc, 'i');
+
+                    for (var i in companyData) {
+                        var company = companyData[i][opts.chooseFrom],
+                            companyStr = company.slice(0, inputValueLength);
+                        if(inputValue == companyStr){
+                            variants.push(company);
+                        }
+                        console.log('company --- ' + i + ': ' + company);
+                    }
+                    //console.log('inputValueLength --- ' + inputValueLength);
+                    //quantityOfResults = $searchResult.children().length;
+
+
+                    addResult(variants);
+                });
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //
+            //function handlerJSON() {
+            //    $.getJSON(opts.pathToFile, {}, function(companyData) {
+            //        var variants = [];
+            //        var reg = new RegExp(pluginAsc, 'i');
+            //        for (var i in companyData) {
+            //            var company = (companyData[i]).company,
+            //                companyStr = company.slice(0, inputValueLength);
+            //            if(inputValue == companyStr){
+            //                variants.push(company);
+            //            }
+            //        }
+            //        console.log('inputValueLength --- ' + inputValueLength);
+            //        console.log('company --- ' + company);
+            //        //quantityOfResults = $searchResult.children().length;
+            //
+            //
+            //        addResult(variants)
+            //    });
+            //}
+
+            function handlerURL() {
+                var request = {};
+                request[opts.inputName] = inputValue;
+                $.get( "/company-db", request, function(response) {
+                    addResult(response);
+                });
+            }
+
+            function addResult(variants) {
+                var variantsOnlyBeginning = [];
+                for (var i = 0; i < variants.length; i++) {
+                    if (variants[i].indexOf(inputValue) == 0) {
+                        variantsOnlyBeginning.push(variants[i])
+                    }
+                }
+                $searchResult.html("");
+                $searchResult.append('<div class="js_t18_advice_variant">' + inputValue + '</div>');
+                //inputValue = inputValue.charAt(0).toUpperCase() + inputValue.substr(1).toLowerCase();
+                for (var j = 0; j < variants.length; j++) {
+                    $searchResult.append('<div class="js_t18_advice_variant">' + variants[j] + '</div>');
+                }
+                $searchResult.show();
+                quantityOfResults = $searchResult.children().length;
             }
 
             function listeners() {
