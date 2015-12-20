@@ -12,7 +12,7 @@
             colorStyle: 'defaultStyle' //'selfStyle', 'successStyle', 'warningStyle', 'errorStyle'
             //inputName: 'query',
             //placeHolder: '',
-            //chooseFrom: '',
+            //chooseField: '',
         };
         var opts = $.extend(true, {}, settings, options);
         this.each(function(i, el) {
@@ -109,66 +109,19 @@
 
             }
 
-
-
-
-
-
             function handlerJSON() {
                 $.getJSON(opts.pathToFile, {}, function(companyData) {
-                    var variants = [];
-                    //var reg = new RegExp(pluginAsc, 'i');
-
+                    var element,
+                        variants = [],
+                        reg = new RegExp(inputValue, 'i');
                     for (var i in companyData) {
-                        var company = companyData[i][opts.chooseFrom],
-                            companyStr = company.slice(0, inputValueLength);
-                        if(inputValue == companyStr){
-                            variants.push(company);
-                        }
-                        console.log('company --- ' + i + ': ' + company);
+                        element = companyData[i][opts.chooseField];
+                        if(reg.test(element)) variants.push(element);
                     }
-                    //console.log('inputValueLength --- ' + inputValueLength);
-                    //quantityOfResults = $searchResult.children().length;
-
-
+                    variants.sort();
                     addResult(variants);
                 });
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //
-            //function handlerJSON() {
-            //    $.getJSON(opts.pathToFile, {}, function(companyData) {
-            //        var variants = [];
-            //        var reg = new RegExp(pluginAsc, 'i');
-            //        for (var i in companyData) {
-            //            var company = (companyData[i]).company,
-            //                companyStr = company.slice(0, inputValueLength);
-            //            if(inputValue == companyStr){
-            //                variants.push(company);
-            //            }
-            //        }
-            //        console.log('inputValueLength --- ' + inputValueLength);
-            //        console.log('company --- ' + company);
-            //        //quantityOfResults = $searchResult.children().length;
-            //
-            //
-            //        addResult(variants)
-            //    });
-            //}
 
             function handlerURL() {
                 var request = {};

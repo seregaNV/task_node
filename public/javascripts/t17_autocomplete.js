@@ -10,7 +10,7 @@ $(document).ready(function() {
                                             (others: 'selfStyle', 'warningStyle', 'errorStyle', 'successStyle');*/
         inputName: 'autocomplete',      //значення для атрибута name вибраного input (поумолчянію: невказано). name attribute value (default: default)
 
-        chooseFrom: 'company',          //по якому полі проводити виборку (використовується тільки при роботі з setObject або setJSON, поумолчянію: невказано). by which the field to carry out the sampling (used only when working with setObject or getJSON, default: unspecified).
+        chooseField: 'company',          //по якому полі проводити виборку (використовується тільки при роботі з setObject або setJSON, поумолчянію: невказано). by which the field to carry out the sampling (used only when working with setObject or getJSON, default: unspecified).
         //searchInside: true,           //также показувати варіанти, в яких є співпадання всередині строки (поумолчянію: false). also show variations where the are coincidence inside of terms  (default: false)
         autoFocus: true                 //активація автофокуса на input (поумолчянію: false). activation of focus true/false (default: false)
         //inputType: 'email'            //значення для атрибута type вибраного input (поумолчянію: "text"). type attribute value (default: "text")
