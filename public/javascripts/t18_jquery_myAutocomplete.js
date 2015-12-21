@@ -3,16 +3,20 @@
     $.fn.myAutocomplete = function(options){
         options = options || {};
         var settings = {
-            pathToFile: '',
             inputType: 'text',
             minLength: 3,
             delay: 1,
             searchInside: false,
             autoFocus: false,
-            colorStyle: 'defaultStyle' //'selfStyle', 'successStyle', 'warningStyle', 'errorStyle'
+            colorStyle: 'defaultStyle', //'selfStyle', 'successStyle', 'warningStyle', 'errorStyle'
             //inputName: 'query',
             //placeHolder: '',
             //chooseField: '',
+
+            setURL: false,
+            setJSON: false,
+            setObject: false,
+            setArray: false
         };
         var opts = $.extend(true, {}, settings, options);
         this.each(function(i, el) {
@@ -68,11 +72,6 @@
 
             var timeoutID = null;
 
-            //var variants;
-            //var variantsOnlyBeginning;
-
-
-
             function keyUp() {
                 $searchBox.keyup(function(I) {
                     if (((I.keyCode >= 48) && (I.keyCode <= 111)) || I.keyCode == 8) {
@@ -84,10 +83,10 @@
                             if (opts.delay) {
                                 timeoutID = setTimeout(function() {
 
-                                    //handlerArray();
-                                    //handlerObject();
-                                    handlerJSON();
                                     //handlerURL();
+                                    handlerJSON();
+                                    //handlerObject();
+                                    //handlerArray();
 
                                 }, opts.delay);
                             }
@@ -101,16 +100,16 @@
                 });
             }
 
-            function handlerArray() {
-
-            }
-
-            function handlerObject() {
-
+            function handlerURL() {
+                var request = {};
+                request[opts.inputName] = inputValue;
+                $.get( opts.setURL, request, function(response) {
+                    addResult(response);
+                });
             }
 
             function handlerJSON() {
-                $.getJSON(opts.pathToFile, {}, function(companyData) {
+                $.getJSON(opts.setJSON, {}, function(companyData) {
                     var element,
                         variants = [],
                         reg = new RegExp(inputValue, 'i');
@@ -118,35 +117,116 @@
                         element = companyData[i][opts.chooseField];
                         if(reg.test(element)) variants.push(element);
                     }
-                    variants.sort();
                     addResult(variants);
                 });
             }
 
-            function handlerURL() {
-                var request = {};
-                request[opts.inputName] = inputValue;
-                $.get( "/company-db", request, function(response) {
-                    addResult(response);
-                });
+            function handlerObject() {
+                var element,
+                    variants = [],
+                    getObject = opts.setObject,
+                    reg = new RegExp(inputValue, 'i');
+                for (var i in getObject) {
+                    element = getObject[i][opts.chooseField];
+                    if(reg.test(element)) variants.push(element);
+                }
+                addResult(variants);
+            }
+
+            function handlerArray() {
+                var variants = [],
+                    getArray = opts.setArray,
+                    reg = new RegExp(inputValue, 'i');
+                for (var i = 0; i < getArray.length; i++) {
+                    if (reg.test(getArray[i])) variants.push(getArray[i]);
+                }
+                addResult(variants);
             }
 
             function addResult(variants) {
-                var variantsOnlyBeginning = [];
+
+                variants.sort();
+                var result,
+                    variantsOnlyBeginning = [],
+                    reg = new RegExp('^' + inputValue, 'i');
+                console.log(variants);
+
                 for (var i = 0; i < variants.length; i++) {
-                    if (variants[i].indexOf(inputValue) == 0) {
+                    if (reg.test(variants[i])) {
                         variantsOnlyBeginning.push(variants[i])
                     }
                 }
+                console.log(variantsOnlyBeginning);
+                result = opts.searchInside ? variants : variantsOnlyBeginning;
                 $searchResult.html("");
                 $searchResult.append('<div class="js_t18_advice_variant">' + inputValue + '</div>');
-                //inputValue = inputValue.charAt(0).toUpperCase() + inputValue.substr(1).toLowerCase();
-                for (var j = 0; j < variants.length; j++) {
-                    $searchResult.append('<div class="js_t18_advice_variant">' + variants[j] + '</div>');
+                for (var j = 0; j < result.length; j++) {
+                    $searchResult.append('<div class="js_t18_advice_variant">' + result[j] + '</div>');
                 }
                 $searchResult.show();
                 quantityOfResults = $searchResult.children().length;
             }
+
+
+
+
+
+
+
+
+
+            //function addResult(variants) {
+            //
+            //    variants.sort();
+            //    var result,
+            //        variantsOnlyBeginning = [],
+            //        reg = new RegExp('^' + inputValue, 'i');
+            //    console.log(variants);
+            //
+            //    for (var i = 0; i < variants.length; i++) {
+            //        if (reg.test(variants[i])) {
+            //            variantsOnlyBeginning.push(variants[i])
+            //        }
+            //    }
+            //    console.log(variantsOnlyBeginning);
+            //    result = opts.searchInside ? variantsOnlyBeginning : variants;
+            //
+            //
+            //
+            //
+            //    $searchResult.html("");
+            //    $searchResult.append('<div class="js_t18_advice_variant">' + inputValue + '</div>');
+            //    for (var j = 0; j < result.length; j++) {
+            //        if (ind == 0) {
+            //            var inputUpper = inputValue.charAt(0).toUpperCase() + inputValue.substr(1).toLowerCase();
+            //            var ind = result[j].indexOf(inputUpper);
+            //            var partA = result[j].slice(0, inputValueLength);
+            //            var partB = result[j].slice(inputValueLength, result[j].length);
+            //            $searchResult.append('<div class="js_t18_advice_variant"><strong>' + partA + '</strong>' + partB + '</div>');
+            //
+            //        } else {
+            //            var ind = result[j].indexOf(inputValue);
+            //            var partA = result[j].slice(0, ind);
+            //            var partB = result[j].slice(ind, ind + inputValueLength);
+            //            var partC = result[j].slice(ind + inputValueLength, result[j].length);
+            //            $searchResult.append('<div class="js_t18_advice_variant">' + partA + '<strong>' + partB + '</strong>' + partC + '</div>');
+            //        }
+            //        //console.log('ind' + j + ": " + ind);
+            //        //console.log('indA' + j + ": " + indA);
+            //        //console.log('indB' + j + ": " + indB);
+            //        //console.log('indC' + j + ": " + indC);
+            //    }
+            //    $searchResult.show();
+            //    quantityOfResults = $searchResult.children().length;
+            //}
+
+
+
+
+
+
+
+
 
             function listeners() {
 
