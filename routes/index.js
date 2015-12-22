@@ -32,7 +32,7 @@ router.get('/company-db', function(req, res, next) {
         }
         console.log(companys);
         res.send(companys);
-    }).sort({company: 1});
+    });
 });
 
 

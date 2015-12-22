@@ -3,20 +3,23 @@
     $.fn.myAutocomplete = function(options){
         options = options || {};
         var settings = {
-            inputType: 'text',
-            minLength: 3,
-            delay: 1,
-            searchInside: false,
-            autoFocus: false,
-            colorStyle: 'defaultStyle', //'selfStyle', 'successStyle', 'warningStyle', 'errorStyle'
-            //inputName: 'query',
-            //placeHolder: '',
-            //chooseField: '',
 
             setURL: false,
             setJSON: false,
             setObject: false,
-            setArray: false
+            setArray: false,
+            //chooseField: '',
+            //inputName: 'query',
+            //placeHolder: '',
+            inputType: 'text',
+            colorStyle: 'defaultStyle', //'selfStyle', 'successStyle', 'warningStyle', 'errorStyle'
+            autoFocus: false,
+            minLength: 3,
+            delay: false,
+            ignoreCase: false,
+            searchInside: false,
+            visualEffect: false
+
         };
         var opts = $.extend(true, {}, settings, options);
         this.each(function(i, el) {
@@ -69,30 +72,36 @@
                 listeners();
             }
 
-
+            var reg;
             var timeoutID = null;
+            var regFlag;
+
 
             function keyUp() {
                 $searchBox.keyup(function(I) {
                     if (((I.keyCode >= 48) && (I.keyCode <= 111)) || I.keyCode == 8) {
                         if (timeoutID) clearTimeout(timeoutID);
                         inputValue = $searchBox.val();
+                        regFlag = opts.ignoreCase ? 'i' : '';
+                        reg = new RegExp(inputValue, regFlag);
+
+
+                        //if (opts.ignoreCase) {
+                        //    reg = new RegExp(inputValue, 'i');
+                        //} else {
+                        //    reg = new RegExp(inputValue);
+                        //}
+
+
                         inputValueLength = inputValue.length;
                         if (inputValueLength > opts.minLength - 1) {
-
                             if (opts.delay) {
                                 timeoutID = setTimeout(function() {
-
-                                    //handlerURL();
-                                    handlerJSON();
-                                    //handlerObject();
-                                    //handlerArray();
-
+                                    validationOfSettings();
                                 }, opts.delay);
+                            } else {
+                                validationOfSettings();
                             }
-
-
-
                         } else {
                             $searchResult.hide();
                         }
@@ -100,7 +109,23 @@
                 });
             }
 
+            function validationOfSettings() {
+                var checkSetParam = (opts.setURL ? 0 : 1) +
+                                    (opts.setJSON ? 0 : 1) +
+                                    (opts.setObject ? 0 : 1) +
+                                    (opts.setArray ? 0 : 1);
+                if (checkSetParam == 3) {
+                    if (opts.setURL) handlerURL();
+                    if (opts.setJSON) handlerJSON();
+                    if (opts.setObject) handlerObject();
+                    if (opts.setArray) handlerArray();
+                } else {
+                    console.error('jQuery_myAutocomplete: You must choose one of the "setURL", "setJSON", "setObject" or "setArray", when initializing plugin!');
+                }
+            }
+
             function handlerURL() {
+                console.log('jQuery_myAutocomplete: handlerURL() is triggered.');
                 var request = {};
                 request[opts.inputName] = inputValue;
                 $.get( opts.setURL, request, function(response) {
@@ -109,10 +134,10 @@
             }
 
             function handlerJSON() {
+                console.log('jQuery_myAutocomplete: handlerJSON() is triggered.');
                 $.getJSON(opts.setJSON, {}, function(companyData) {
                     var element,
-                        variants = [],
-                        reg = new RegExp(inputValue, 'i');
+                        variants = [];
                     for (var i in companyData) {
                         element = companyData[i][opts.chooseField];
                         if(reg.test(element)) variants.push(element);
@@ -122,10 +147,10 @@
             }
 
             function handlerObject() {
+                console.log('jQuery_myAutocomplete: handlerObject() is triggered.');
                 var element,
                     variants = [],
-                    getObject = opts.setObject,
-                    reg = new RegExp(inputValue, 'i');
+                    getObject = opts.setObject;
                 for (var i in getObject) {
                     element = getObject[i][opts.chooseField];
                     if(reg.test(element)) variants.push(element);
@@ -134,9 +159,9 @@
             }
 
             function handlerArray() {
+                console.log('jQuery_myAutocomplete: handlerArray() is triggered.');
                 var variants = [],
-                    getArray = opts.setArray,
-                    reg = new RegExp(inputValue, 'i');
+                    getArray = opts.setArray;
                 for (var i = 0; i < getArray.length; i++) {
                     if (reg.test(getArray[i])) variants.push(getArray[i]);
                 }
@@ -144,89 +169,41 @@
             }
 
             function addResult(variants) {
+                var result, exist, index, partA, partB, partC,
+                    variantsOnlyBeginning = [],
+                    regInStart = new RegExp('^' + inputValue, 'i');
 
                 variants.sort();
-                var result,
-                    variantsOnlyBeginning = [],
-                    reg = new RegExp('^' + inputValue, 'i');
-                console.log(variants);
-
                 for (var i = 0; i < variants.length; i++) {
-                    if (reg.test(variants[i])) {
+                    if (regInStart.test(variants[i])) {
                         variantsOnlyBeginning.push(variants[i])
                     }
                 }
-                console.log(variantsOnlyBeginning);
                 result = opts.searchInside ? variants : variantsOnlyBeginning;
                 $searchResult.html("");
-                $searchResult.append('<div class="js_t18_advice_variant">' + inputValue + '</div>');
-                for (var j = 0; j < result.length; j++) {
-                    $searchResult.append('<div class="js_t18_advice_variant">' + result[j] + '</div>');
+                $searchResult.append('<div id="js_myAutocomplete_duplicateInputValue" class="js_myAutocomplete_advice_variant">' + inputValue + '</div>');
+
+                if (opts.visualEffect) {
+                    for (var j = 0; j < result.length; j++) {
+                        exist = reg.exec(result[j]);
+                        console.log(exist);
+                        if (exist) {
+                            index = exist.index;
+                            partA = result[j].slice(0, index);
+                            partB = result[j].slice(index, index + inputValueLength);
+                            partC = result[j].slice(index + inputValueLength, result[j].length);
+                            $searchResult.append('<div class="js_myAutocomplete_advice_variant">' + partA + '<span class="js_myAutocomplete_valueInVariant">' + partB + '</span>' + partC + '</div>');
+                        }
+                    }
+                } else {
+                    for (var j = 0; j < result.length; j++) {
+                        $searchResult.append('<div class="js_myAutocomplete_advice_variant">' + result[j] + '</div>');
+                    }
                 }
+
                 $searchResult.show();
                 quantityOfResults = $searchResult.children().length;
             }
-
-
-
-
-
-
-
-
-
-            //function addResult(variants) {
-            //
-            //    variants.sort();
-            //    var result,
-            //        variantsOnlyBeginning = [],
-            //        reg = new RegExp('^' + inputValue, 'i');
-            //    console.log(variants);
-            //
-            //    for (var i = 0; i < variants.length; i++) {
-            //        if (reg.test(variants[i])) {
-            //            variantsOnlyBeginning.push(variants[i])
-            //        }
-            //    }
-            //    console.log(variantsOnlyBeginning);
-            //    result = opts.searchInside ? variantsOnlyBeginning : variants;
-            //
-            //
-            //
-            //
-            //    $searchResult.html("");
-            //    $searchResult.append('<div class="js_t18_advice_variant">' + inputValue + '</div>');
-            //    for (var j = 0; j < result.length; j++) {
-            //        if (ind == 0) {
-            //            var inputUpper = inputValue.charAt(0).toUpperCase() + inputValue.substr(1).toLowerCase();
-            //            var ind = result[j].indexOf(inputUpper);
-            //            var partA = result[j].slice(0, inputValueLength);
-            //            var partB = result[j].slice(inputValueLength, result[j].length);
-            //            $searchResult.append('<div class="js_t18_advice_variant"><strong>' + partA + '</strong>' + partB + '</div>');
-            //
-            //        } else {
-            //            var ind = result[j].indexOf(inputValue);
-            //            var partA = result[j].slice(0, ind);
-            //            var partB = result[j].slice(ind, ind + inputValueLength);
-            //            var partC = result[j].slice(ind + inputValueLength, result[j].length);
-            //            $searchResult.append('<div class="js_t18_advice_variant">' + partA + '<strong>' + partB + '</strong>' + partC + '</div>');
-            //        }
-            //        //console.log('ind' + j + ": " + ind);
-            //        //console.log('indA' + j + ": " + indA);
-            //        //console.log('indB' + j + ": " + indB);
-            //        //console.log('indC' + j + ": " + indC);
-            //    }
-            //    $searchResult.show();
-            //    quantityOfResults = $searchResult.children().length;
-            //}
-
-
-
-
-
-
-
-
 
             function listeners() {
 
