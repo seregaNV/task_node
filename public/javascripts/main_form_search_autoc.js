@@ -1,7 +1,7 @@
 "use strict";
 $(document).ready(function() {
 
-    $("input.task_input").myAutocomplete({
+    $("input#main_form_search").myAutocomplete({
 
         /*'setURL', 'setJSON', 'setObject', 'setArray' для вибору способа отримання варіантів автокомпліта.
          ПОТРІБНО ВИБРАТИ ТІЛЬКИ ОДИН З НАСТУПНИХ ЧОТИРЬОХ ПАРАМЕТРІВ.
@@ -21,23 +21,23 @@ $(document).ready(function() {
                                         //name attribute value (used to request on the server when, default: default)
 
 
-        placeHolder: 'Company name',    //значення для атрибута placeholder вибраного input (поумолчянію: невказано).
+        placeHolder: 'Search',    //значення для атрибута placeholder вибраного input (поумолчянію: невказано).
                                         // placeholder attribute value (default: default)
 
         //inputType: 'email',           //значення для атрибута type вибраного input (поумолчянію: "text").
                                         //type attribute value (default: "text")
 
-        colorStyle: 'selfStyle',        //набор стилів для автокомпліта, співпадають із стилями Bootstrap (поумолчянію: defaultStyle).
+        //colorStyle: 'selfStyle',        //набор стилів для автокомпліта, співпадають із стилями Bootstrap (поумолчянію: defaultStyle).
                                         //Styles of elements autocomplete (default: "defaultStyle").
                                         //(others: 'selfStyle', 'warningStyle', 'errorStyle', 'successStyle');
 
-        autoFocus: true,                //активація автофокуса на input (поумолчянію: false).
+        //autoFocus: true,                //активація автофокуса на input (поумолчянію: false).
                                         // activation of focus true/false (default: false)
 
-        //minLength: 2,                   //мінімальна кількість введених символів для активації автокомпліта (поумолчянію: 3).
+        minLength: 2,                   //мінімальна кількість введених символів для активації автокомпліта (поумолчянію: 3).
                                         // number of characters to activate the auto complete (default: 3)
 
-        delay: 1000,                    //чяс затримки між нажанням клавіши і активацією автокомпліта (поумолчянію: 1 мс).
+        delay: 500,                    //чяс затримки між нажанням клавіши і активацією автокомпліта (поумолчянію: 1 мс).
                                         // the delay time of query autocompletion (default: 1ms)
 
         ignoreCase: true,               //чи буде ігноруватися регістри (поумолчянію: false).

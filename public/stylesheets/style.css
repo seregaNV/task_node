@@ -157,3 +157,23 @@
 .t16_queryString{
     word-wrap: break-word;
 }
+
+
+/*настройки форми головного меню*/
+#main_form{
+    position: absolute;
+    margin-top: 55px;
+    z-index: 998;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.main_form_input{
+    background-color: rgba(255, 255, 255, 0.29);
+    color: #fff;
+}
+.main_form_input::-webkit-input-placeholder {color:#ccc;}
+.main_form_input::-moz-placeholder {color:#ccc;}
+.main_form_btn{
+    color: #ccc;
+}

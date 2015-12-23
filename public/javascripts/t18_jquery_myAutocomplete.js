@@ -127,7 +127,7 @@
             function handlerURL() {
                 console.log('jQuery_myAutocomplete: handlerURL() is triggered.');
                 var request = {};
-                request[opts.inputName] = inputValue;
+                request['queryToDB'] = inputValue;
                 $.get( opts.setURL, request, function(response) {
                     addResult(response);
                 });
@@ -186,7 +186,6 @@
                 if (opts.visualEffect) {
                     for (var j = 0; j < result.length; j++) {
                         exist = reg.exec(result[j]);
-                        console.log(exist);
                         if (exist) {
                             index = exist.index;
                             partA = result[j].slice(0, index);

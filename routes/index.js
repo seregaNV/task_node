@@ -1,6 +1,67 @@
 var express = require('express'),
     router = express.Router();
 
+
+router.get('/*', function(req, res, next) {
+    var valueOfQuery = req.query.autocomplete;
+    if (valueOfQuery) {
+        var companyData = require('../data/task.json'),
+            partNameCompany,
+            companyList = [],
+            chosenCompany = {};
+        valueOfQuery = valueOfQuery.charAt(0).toUpperCase() + valueOfQuery.substr(1).toLowerCase();
+
+        for (var i in companyData) {
+            partNameCompany = companyData[i].company.slice(0, valueOfQuery.length);
+
+            if ((valueOfQuery == partNameCompany) && (valueOfQuery != companyData[i].company)) {
+                companyList.push(companyData[i]);
+
+            } else if (valueOfQuery == companyData[i].company) {
+                chosenCompany.company = companyData[i].company;
+                chosenCompany.country = companyData[i].country;
+                chosenCompany.founding_date = companyData[i].founding_date;
+                chosenCompany.phone = companyData[i].phone;
+                chosenCompany.discription = companyData[i].discription;
+            }
+        }
+        if (companyList[0]) {
+            res.render('company-list', {
+                title: 'Chosen companies',
+                jumbotitle: 'Chosen companies',
+                jumbotext: 'A list of companies that are suitable to your search',
+                partMessage: 'chosen',
+                companyData: companyList
+            });
+        } else if (chosenCompany.company) {
+            res.render('company-info', {
+                title: chosenCompany.company,
+                jumbotitle: chosenCompany.company,
+                jumbotext: chosenCompany.discription,
+                companyData: chosenCompany
+            });
+        } else {
+            res.render('not-found', {
+                title: 'Not found',
+                jumbotitle: 'Null result',
+                jumbotext: 'Company by your request is not found...',
+                header: 'Null result',
+                message: 'Company by your request is not found...'
+            });
+        }
+    } else if (valueOfQuery == ''){
+        res.render('not-found', {
+            title: 'Not found',
+            jumbotitle: 'Null value in input',
+            jumbotext: 'To select the company, please enter the value of search...',
+            header: 'Null value in input',
+            message: 'To select the company, please enter the value of search...'
+        });
+    } else {
+        next();
+    }
+});
+
 router.get('/', function(req, res, next) {
     res.render('main', {
         title: 'Tasks'
@@ -21,7 +82,7 @@ router.get('/blog', function(req, res, next) {
 
 var Companys = require('scripts/usersChat').Companys;
 router.get('/company-db', function(req, res, next) {
-    var pluginAsc = req.query.autocomplete;
+    var pluginAsc = req.query.queryToDB;
     var reg = new RegExp(pluginAsc, 'i');
     var conditions = {};
     conditions['company'] = reg;
