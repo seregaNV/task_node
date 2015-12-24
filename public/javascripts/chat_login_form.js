@@ -4,7 +4,7 @@ $(document).ready(function() {
         var form = $(this);
 
         $('.error', form).html('');
-        $(":submit", form).button('loading');
+        //$(":submit", form).button('loading');
 
         $.ajax({
             url: "/login-chat",
@@ -15,8 +15,10 @@ $(document).ready(function() {
             },
             statusCode: {
                 200: function() {
-                    form.html("You sign in").addClass('alert-success');
-                    window.location.href = "/chat";
+                    //form.html("You sign in").addClass('alert-success');
+                    //window.location.href = "/chat";
+                    location.reload();
+
                 },
                 403: function(jqXHR) {
                     var error = JSON.parse(jqXHR.responseText);

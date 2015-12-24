@@ -1,7 +1,7 @@
 "use strict";
 $(document).ready(function() {
 
-    $("input.task_input").myAutocomplete({
+    $("input[placeholder='Best companies']").myAutocomplete({
 
         /*'setURL', 'setJSON', 'setObject', 'setArray' для вибору способа отримання варіантів автокомпліта.
          ПОТРІБНО ВИБРАТИ ТІЛЬКИ ОДИН З НАСТУПНИХ ЧОТИРЬОХ ПАРАМЕТРІВ.
@@ -21,7 +21,7 @@ $(document).ready(function() {
                                         //name attribute value (used to send on the server, default: default)
 
 
-        placeHolder: 'Company name',    //значення для атрибута placeholder вибраного input (поумолчянію: невказано).
+        //placeHolder: 'Company name',    //значення для атрибута placeholder вибраного input (поумолчянію: невказано).
                                         // placeholder attribute value (default: default)
 
         //inputType: 'email',           //значення для атрибута type вибраного input (поумолчянію: "text").

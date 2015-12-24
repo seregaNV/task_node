@@ -1,7 +1,7 @@
 "use strict";
 $(document).ready(function() {
 
-    $("input.task_input").myAutocomplete({
+    $("#t17_inputAutocomlete").myAutocomplete({
 
         /*'setURL', 'setJSON', 'setObject', 'setArray' для вибору способа отримання варіантів автокомпліта.
          ПОТРІБНО ВИБРАТИ ТІЛЬКИ ОДИН З НАСТУПНИХ ЧОТИРЬОХ ПАРАМЕТРІВ.

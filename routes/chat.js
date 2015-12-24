@@ -37,6 +37,25 @@ router.get('/chat', checkAuth, function(req, res, next) {
     });
 });
 
+
+
+router.post('/logout', function(req, res, next) {
+    var sid = req.session.id;
+    var io = req.app.get('io');
+    var location = req.get('referer');
+        //console.log('req.get("referer") --- ' + req.get('referer'));
+        //var test = req.app.get('test');
+        //console.log('--------------test------------------------------------   ' + test);
+        req.session.destroy(function(err) {
+            io.emit('session:reload', sid);
+            if (err) return next(err);
+            if (location == 'http://localhost:3000/chat') {
+                res.redirect('/');
+            } else {
+                res.redirect(location);
+            }
+        });
+});
 //io.sockets.on('connect', function (socket) {
 //    console.log('--------------test_1------------------------------------');
 //    socket.emit('session:reload', sid);
@@ -200,18 +219,5 @@ router.get('/chat', checkAuth, function(req, res, next) {
 //    res.redirect('/');
 //});
 
-
-
-router.post('/logout', function(req, res, next) {
-    var sid = req.session.id;
-    var io = req.app.get('io');
-    //var test = req.app.get('test');
-    //console.log('--------------test------------------------------------   ' + test);
-    req.session.destroy(function(err) {
-        io.emit('session:reload', sid);
-        if (err) return next(err);
-        res.redirect('/');
-    });
-});
 
 module.exports = router;

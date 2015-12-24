@@ -168,12 +168,20 @@
     white-space: nowrap;
 }
 
-.main_form_input{
-    background-color: rgba(255, 255, 255, 0.29);
-    color: #fff;
-}
+/*.main_form_input{*/
+    /*background-color: rgba(255, 255, 255, 0.29);*/
+    /*color: #fff;*/
+/*}*/
 .main_form_input::-webkit-input-placeholder {color:#ccc;}
 .main_form_input::-moz-placeholder {color:#ccc;}
 .main_form_btn{
     color: #ccc;
+}
+.main_form{
+    color: #ccc;
+    margin-right: 15px;
+    float:right;
+}
+#main_username{
+    margin-top: -10px;
 }

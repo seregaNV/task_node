@@ -1,7 +1,7 @@
 "use strict";
 $(document).ready(function() {
 
-    $("input#main_form_search").myAutocomplete({
+    $("#main_form_search").myAutocomplete({
 
         /*'setURL', 'setJSON', 'setObject', 'setArray' для вибору способа отримання варіантів автокомпліта.
          ПОТРІБНО ВИБРАТИ ТІЛЬКИ ОДИН З НАСТУПНИХ ЧОТИРЬОХ ПАРАМЕТРІВ.
@@ -27,7 +27,7 @@ $(document).ready(function() {
         //inputType: 'email',           //значення для атрибута type вибраного input (поумолчянію: "text").
                                         //type attribute value (default: "text")
 
-        //colorStyle: 'selfStyle',        //набор стилів для автокомпліта, співпадають із стилями Bootstrap (поумолчянію: defaultStyle).
+        colorStyle: 'selfStyle',        //набор стилів для автокомпліта, співпадають із стилями Bootstrap (поумолчянію: defaultStyle).
                                         //Styles of elements autocomplete (default: "defaultStyle").
                                         //(others: 'selfStyle', 'warningStyle', 'errorStyle', 'successStyle');
 
