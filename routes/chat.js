@@ -16,7 +16,8 @@ router.post('/login-chat', function(req, res, next) {
     var password = req.body.password;
 
     User.authorize(username, password, function(err, user) {
-        if (err) return next(err);
+        console.log(err);
+        if (err) return next(err); // err
         //if (err) {
         //    if (err instanceof AuthError) {
         //        return next(new HttpError(403, err.message))

@@ -54,11 +54,10 @@
                             <li><a href="http://localhost:3000/data-json">Data JSON</a></li>
                             <li><a href="http://localhost:3000/autocomplete">Autocomplete</a></li>
                             <li><a href="http://localhost:3000/simple-chat">Simple chat</a></li>
-                            <li><a href="http://localhost:3000/chat">Chat</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="http://localhost:3000/login-chat">Chat</a>
+                        <a href="http://localhost:3000/chat">Chat</a>
                     </li>
                 </ul>
             </div>
@@ -85,7 +84,7 @@
                 <button type="button" id="js_chat_logout" class="btn btn-link main_form_btn"><i class="fa fa-sign-out fa-2x"></i></button>
             </div>
             {% else %}
-                <form id="chat_login_form" class="form-inline login-form main_form" name="login-form">
+                <form class="form-inline login-form main_form chat_login_form" name="login-form">
                     <div class="form-group">
                         <input name="username" type="text" class="form-control main_form_input task_input" id="input-username" placeholder="Username">
                     </div>

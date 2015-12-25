@@ -1,6 +1,6 @@
 "use strict";
 $(document).ready(function() {
-    $('#chat_login_form').on('submit', function() {
+    $('.chat_login_form').on('submit', function() {
         var form = $(this);
 
         $('.error', form).html('');
@@ -16,8 +16,11 @@ $(document).ready(function() {
             statusCode: {
                 200: function() {
                     //form.html("You sign in").addClass('alert-success');
-                    //window.location.href = "/chat";
-                    location.reload();
+                    if (window.location == 'http://localhost:3000/login-chat') {
+                        window.location.href = "/chat";
+                    } else {
+                        location.reload();
+                    }
 
                 },
                 403: function(jqXHR) {

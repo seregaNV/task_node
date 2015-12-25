@@ -19,6 +19,7 @@ function loadSession(sid, callback) {
 }
 
 function loadUser(session, callback) {
+    //console.log(session);
     if (!session.user) {
         console.log('Session %s is anonymous', session.id);
         return callback(null, null);
@@ -50,7 +51,8 @@ module.exports = function(server) {
             },
             function(session, callback) {
                 if (!session) {
-                    callback(new Error('NO session'));
+                    callback(Error('NO session')); //new HttpError
+                    return false; // ...
                 }
                 handshake.session = session;
                 loadUser(session, callback);
