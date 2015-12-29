@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var HttpError = require('./scripts/errorHandler').HttpError;
 
 var routes = require('./routes/index');
 var simpleChat = require('./routes/simple-chat');
@@ -28,6 +29,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(require('middleware/sendHttpError'));
+//app.use(require('middleware/loadUser'));
 
 var expressSession = require('express-session');
 var sessionStore = require('scripts/sessionStore');
@@ -50,10 +53,9 @@ app.use(expressSession({
 //    res.send('Visits: ' + req.session.numberOfVisits);
 //});
 
-//app.use(require('middleware/sendHttpError'));
-app.use(require('middleware/loadUser'));
 
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', routes);
 app.use(simpleChat);
@@ -62,6 +64,13 @@ app.use(testMyAutocomplete);
 app.use(youtube);
 app.use(simpleTasks);
 app.use(chat);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
 
 //var errorhandler = require('errorhandler');
 //var HttpError = require('scripts/errorHandler').HttpError;
@@ -83,14 +92,8 @@ app.use(chat);
 //});
 
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-// development error handler
-// will print stacktrace
+ //development error handler
+ //will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
@@ -102,6 +105,28 @@ if (app.get('env') === 'development') {
         });
     });
 }
+
+
+//if (app.get('env') === 'development') {
+//    app.use(function(err, req, res, next) {
+//        if (typeof err == 'number') {
+//            err = new HttpError(err);
+//        }
+//        if (err instanceof HttpError) {
+//            res.sendHttpError(err);
+//        } else {
+//            res.status(err.status || 500);
+//            res.render('error', {
+//                title: Error,
+//                message: err.message,
+//                error: err,
+//                stack: err.stack
+//            });
+//            console.log(err);
+//        }
+//    })
+//}
+
 
 // production error handler
 // no stacktraces leaked to user

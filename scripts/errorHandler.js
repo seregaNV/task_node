@@ -1,7 +1,10 @@
 var util = require('util');
 var http = require('http');
+var path = require('path');
 
 function HttpError(status, message) {
+    //console.log(status);
+    //console.log(message);
     Error.apply(this, arguments);
     Error.captureStackTrace(this, HttpError);
 

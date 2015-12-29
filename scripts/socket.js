@@ -46,7 +46,6 @@ module.exports = function(server) {
                 handshake.cookies = cookie.parse(handshake.headers.cookie || '');
                 var sidCookie = handshake.cookies["sid"];
                 var sid = cookieParser.signedCookie(sidCookie, "KillerIsJim");
-                //console.log(sid);
                 loadSession(sid, callback);
             },
             function(session, callback) {
@@ -75,10 +74,13 @@ module.exports = function(server) {
         });
     });
 
+
+
     io.on('session:reload', function(sid) {
-        console.log('--------------test_session:reload------------------------------------');
         console.log(sid);
+        console.log('--------------test_session:reload------------------------------------');
     });
+
 
 
     //socket.on('session:reload', function() {
@@ -106,15 +108,14 @@ module.exports = function(server) {
     //});
 
     io.on('connection', function (socket) {
-        //console.log('--------------test_session:reload------------------------------------ ');
         var username = socket.request.user.get('username');
         socket.broadcast.emit('join', username);
         socket.on('message', function (text, callback) {
             socket.broadcast.emit('message', username, text);
             callback && callback();
         });
-        //socket.on('session:reload', function(test) {
-        //    console.log('--------------test_session:reload------------------------------------ ' + test);
+        //socket.on('session:reload', function(sid) {
+        //    console.log('--------------test_session:reload------------------------------------ ' + sid);
         //    //console.log(sid);
         //});
         socket.on('disconnect', function() {

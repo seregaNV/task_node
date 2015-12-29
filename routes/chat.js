@@ -16,7 +16,6 @@ router.post('/login-chat', function(req, res, next) {
     var password = req.body.password;
 
     User.authorize(username, password, function(err, user) {
-        console.log(err);
         if (err) return next(err); // err
         //if (err) {
         //    if (err instanceof AuthError) {
@@ -44,18 +43,17 @@ router.post('/logout', function(req, res, next) {
     var sid = req.session.id;
     var io = req.app.get('io');
     var location = req.get('referer');
-        //console.log('req.get("referer") --- ' + req.get('referer'));
-        //var test = req.app.get('test');
-        //console.log('--------------test------------------------------------   ' + test);
-        req.session.destroy(function(err) {
-            io.emit('session:reload', sid);
-            if (err) return next(err);
-            if (location == 'http://localhost:3000/chat') {
-                res.redirect('/');
-            } else {
-                res.redirect(location);
-            }
-        });
+    //var test = req.app.get('test');
+    //console.log('--------------test------------------------------------   ' + test);
+    req.session.destroy(function(err) {
+        io.emit('session:reload', sid);
+        if (err) return next(err);
+        if (location == 'http://localhost:3000/chat') {
+            res.redirect('/');
+        } else {
+            res.redirect(location);
+        }
+    });
 });
 //io.sockets.on('connect', function (socket) {
 //    console.log('--------------test_1------------------------------------');

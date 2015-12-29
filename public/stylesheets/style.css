@@ -167,11 +167,10 @@
     width: 100%;
     white-space: nowrap;
 }
-
-/*.main_form_input{*/
-    /*background-color: rgba(255, 255, 255, 0.29);*/
-    /*color: #fff;*/
-/*}*/
+.main_form_input{
+    background-color: rgba(255, 255, 255, 0.29);
+    color: #fff;
+}
 .main_form_input::-webkit-input-placeholder {color:#ccc;}
 .main_form_input::-moz-placeholder {color:#ccc;}
 .main_form_btn{
@@ -184,4 +183,34 @@
 }
 #main_username{
     margin-top: -10px;
+}
+
+/*Настройки странічки чята*/
+#chat_window{
+    border: 1px solid #999;
+    border-radius: 4px;
+    /*height: 400px;*/
+}
+#js_chat_messages{
+    height: 400px;
+    overflow: auto;
+    margin: 15px;
+    word-wrap: break-word;
+}
+#js_chat_input{
+    width: 100%;
+    margin: 15px;
+}
+#js_chat_input:focus{
+    border: 1px solid #aaa;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #ccc;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #ccc;
+}
+#chat_btn{
+    float:right;
+    margin: -8px 15px;
+    /*margin-top: -10px;*/
+}
+.chat_message_time{
+    color: #999;
 }

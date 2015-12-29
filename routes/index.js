@@ -98,11 +98,11 @@ router.get('/company-db', function(req, res, next) {
 
 
 
-//Chat_________________________________________________________________________________________________________________
+//DB_________________________________________________________________________________________________________________
 
 var User = require('scripts/usersChat').User;
 var ObjectID = require('mongodb').ObjectID;
-//var HttpError = require('scripts/errorHandler').HttpError;
+var HttpError = require('scripts/errorHandler').HttpError;
 
 router.get('/users', function(req, res, next) {
     User.find({}, function (err, users) {
@@ -112,18 +112,19 @@ router.get('/users', function(req, res, next) {
 });
 
 router.get('/user/:id', function(req, res, next){
-    try {
-        var id = new ObjectID(req.params.id);
-    } catch (e) {
-        next(404);
-        return;
-    }
+    //try {
+    //    var id = new ObjectID(req.params.id);
+    //} catch (e) {
+    //    next(404);
+    //    return;
+    //}
+    //throw new Error('User not found');
     User.findById(req.params.id, function(err, user){
         //При надобності, організувати правильну обробку ошибок
         if (err) return next(err);
         if (!user) {
             //console.error('User not found');
-            //throw new Error('User not found');
+            next('User not found');
             //next(new HttpError(404, 'User not found.'));
         }
         res.json(user);
