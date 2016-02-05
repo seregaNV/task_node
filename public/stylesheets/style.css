@@ -65,7 +65,7 @@
     font-weight: 600;
     border-color: #0f0;
 }
-#tasks_container{
+.tasks_container{
     margin-top: -30px;
 }
 
@@ -213,4 +213,17 @@
 }
 .chat_message_time{
     color: #999;
+}
+
+/*Simple angular*/
+
+.t24_container {
+    margin: 50px;
+}
+.t24_list {
+    margin-top: 30px;
+}
+.t24_icons {
+    color: red;
+    cursor: pointer;
 }

@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var HttpError = require('./scripts/errorHandler').HttpError;
 
 var routes = require('./routes/index');
+//var angularJS = require('./routes/angularJS');
 var simpleChat = require('./routes/simple-chat');
 var dataJson = require('./routes/data-json');
 var testMyAutocomplete = require('./routes/test-my-autocomplete');
@@ -58,6 +59,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', routes);
+//app.use(angularJS);
 app.use(simpleChat);
 app.use(dataJson);
 app.use(testMyAutocomplete);

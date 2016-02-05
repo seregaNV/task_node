@@ -1,0 +1,37 @@
+{% extends 'main.html' %}
+
+{% block head %}
+    <script type="text/javascript" src="/javascripts/affix-css.js"></script>
+{% endblock %}
+
+{% block viewPart %}
+    <div class="jumbotron">
+        <div class="container">
+            <h1 id="jumbotronh1"><b>{{ jumbotitle }}</b></h1>
+            <p  id="jumbotronp">{{ jumbotext }}</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container tasks_container">
+        <div class="row">
+            <div class="hidden-xs hidden-sm col-md-3 col-lg-3">
+                <nav class="bs-docs-sidebar affix-css">
+                    <ul class="nav nav-stacked">
+                        <li>
+                            <a href="http://localhost:3000/simple-angular" class="list-group-item">Simple angular</a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:3000/phone-app" class="list-group-item">Phone APP</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            {% block angularJS_content %}
+            {% endblock %}
+
+        </div>
+    </div>
+{% endblock %}

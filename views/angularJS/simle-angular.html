@@ -1,0 +1,31 @@
+{% extends '../angularJS.html' %}
+
+{% block head %}
+{% parent %}
+<script src="bower_components/angular/angular.js"></script>
+<script src="javascripts/angularJS/simpleAngular/app.js"></script>
+<script src="javascripts/angularJS/simpleAngular/main.controller.js"></script>
+<script src="javascripts/angularJS/simpleAngular/exampleFactory.js"></script>
+{% endblock %}
+
+{% block angularJS_content %}
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 help-border-left">
+        <div ng-app="app" ng-controller="MainController" class="t24_container">
+            <h2 class="page_name">Simple angular</h2>
+            <h4 class="indent">Getting started with AngularJS.</h4>
+            <br>
+
+            <form class="form-inline">
+                <input type="text" class="form-control" ng-model="name" placeholder="Name" autofocus/>
+                <span ng-if="show">This is {{ name }}!</span>
+                <input type="checkbox" ng-model="show"/>
+                <button type="submit" class="btn btn-default" ng-click="click()">OK</button>
+            </form>
+
+            <ul class="list-unstyled t24_list">
+                <li ng-repeat="item in data"><i class="fa fa-times-circle-o t24_icons" ng-click="remove(item)"></i> {{item}}</li>
+            </ul>
+
+        </div>
+    </div>
+{% endblock %}
